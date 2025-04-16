@@ -1,0 +1,49 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+{% block title %}Almacen{% endblock %}
+{% block contenido %}
+{% if messages %}
+{% for message in messages %}
+
+<script>
+    Swal.fire({
+        title: "info",
+        text: "{{ message }}!",
+        icon: "info"
+    });
+</script>
+{% endfor %}
+{% endif %}
+        <div class="categories">
+            <div class="category">
+                <a onclick="modifitInventari()" >
+                    <i id="textOnclick" class="fa-solid fa-paperclip"></i>
+                    <p id="textOnclick">Modificar Inventario</p>
+                </a>
+            </div>
+            <div class="category">
+                <a href="{% url 'appBodega:newUbication' %}">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p>Agregar Ubicación</p>
+                </a>
+            </div>
+            <div class="category">
+                <a href="">
+                    <i class="fa-solid fa-circle-exclamation"></i>
+                    <p>Mesa de Ayuda</p>
+                </a>
+            </div>
+            <div class="category">
+                <a href="{% url 'appBodega:prestamo' %}">
+                    <i class="fa-solid fa-handshake-simple"></i>
+                    <p>Prestar Elemento</p>
+                </a>
+            </div>
+            <div class="category">
+                <a href="">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <p>Buscar Elemento</p>
+                </a>
+            </div>
+        </div>
+{% endblock %}

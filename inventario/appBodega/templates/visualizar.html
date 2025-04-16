@@ -1,0 +1,43 @@
+{% extends 'plantilla.html' %}
+{% block title %} Detalles Inventario {% endblock %}
+{% block menuoptions %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{% url 'bodega:bodega' %}">Regresar</a>
+</li>
+{% endblock %}
+{% block p %} <h2> Detalles Inventario</h2>{% endblock %}
+
+
+{% block contenido %}
+<div class="row">
+    <div class="col-md-7"> <div class="inventory-item">
+        <h3><strong>Marca:</strong> {{tecnologias.idMarke.name_marke}}</h3>
+        <p><strong>Tipo:</strong> {{tecnologias.idType_technologi.name_technologi}}</p>
+        <p><strong>Estado:</strong> {{tecnologias.id_Place.name_place}}</p>
+        <p><strong>Ubicación:</strong> {{tecnologias.idUbication.name_Ubication}}</p>
+        <p><strong>Serial Sena:</strong> {{tecnologias.series_sena}}</p>
+        <p><strong>Serial Fabrica:</strong> {{tecnologias.series_Manufactures}}</p>
+        <p><strong>Caracteristicas:</strong> {{tecnologias.caracteristics}}</p>
+    </div> 
+    <div class="inventory-item">
+        <p><strong>Descripción:</strong> {{tecnologias.series_Manufactures}}</p>
+    </div>   
+</div>
+    <div class="col-md-5">
+        <div class="container_form">
+            <form id="registrationForm" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div id="step1" class="form-group">
+                    <label for="{{ field.id_for_label }}" class="">{{ field.label }}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+                <div class="buttons">
+                    <button  class="ibutton">Actualizar Información</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

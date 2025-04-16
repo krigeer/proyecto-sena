@@ -1,0 +1,36 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+{% block title %}Administrador{% endblock %}
+{% block contenido %}
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        title: "info",
+        text: "{{ message }}!",
+        icon: "info"
+    });
+</script>
+{% endfor %}
+{% endif %}
+        <div class="categories">
+            <div class="category">
+                <a href="{% url 'appGestorCentro:registroSedes' %}">
+                    <i class="fa-solid fa-building-circle-check"></i>
+                    <p>Registrar Sede</p>
+                </a>
+            </div>
+            <div class="category">
+                <a href="{% url 'appGestorCentro:Centros' %}">
+                    <i class="fa-solid fa-arrow-right-to-city"></i>
+                    <p>Registrar Centro</p>
+                </a>
+            </div>
+            <div class="category">
+                <a href="{% url 'appGestorCentro:sedes' %}">
+                    <i class="fa-solid fa-gear"></i>
+                    <p>Sedes/Centros</p>
+                </a>
+            </div>
+        </div>
+{% endblock %}

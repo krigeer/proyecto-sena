@@ -9,9 +9,9 @@ function modifitInventari(){
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          location.href = "http://127.0.0.1:8000/newTecnologi"
+          location.href = "http://127.0.0.1:8000/bodega/newTecnologi/"
         } else if (result.isDenied) {
-          location.href = "http://127.0.0.1:8000/newOtros"
+          location.href = "http://127.0.0.1:8000/bodega/newOtros/"
         }
       });
     // Swal.fire({

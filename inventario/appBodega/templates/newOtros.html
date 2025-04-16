@@ -1,0 +1,107 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+{% block title %} Tecnologia {% endblock %}
+{% block p %}
+<h1>Inventariar otros Materiales</h1>
+<br>
+{% endblock %}
+
+{% block menuoptions %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{% url 'appBodega:bodega' %}">Regresar</a>
+</li>
+{% endblock %}
+{% block contenido %}
+
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        title: "info",
+        text: "{{ message }}!",
+        icon: "info"
+    });
+</script>
+{% endfor %}
+{% endif %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-8">
+        <div class="container_tablaUser" style="height: 100%;">
+            <form method="GET" action="{% url 'appBodega:newOtros' %}" class="mb-3">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar por Seriales o Nombre" 
+                           value="{{ search_query }}">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            
+            <!-- Tabla de Ubicaciones -->
+            <table class="table table-hover table-striped table-responsive">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Serial Fabrica</th>
+                        <th scope="col">Serial Sena</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ubi in materiales %}
+                    <tr>
+                        <td>{{ ubi.name_material }}</td>
+                        <td>{{ ubi.description }}</td>
+                        <td>{{ ubi.quantity }}</td>
+                        <td>{{ ubi.series_Manufactures }}</td>
+                        <td>{{ ubi.series_sena }}</td>
+                        <td><a href="#" class="btn btn-sm btn-primary">Visualizar</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No se encontraron resultados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <!-- PAGINACIÓN con búsqueda -->
+            <div class="pagination">
+                <span class="step-links">
+                    {% if materiales.has_previous %}
+                        <a href="?page=1&search={{ search_query }}">&laquo; Primera</a>
+                        <a href="?page={{ materiales.previous_page_number }}&search={{ search_query }}">Anterior</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Página {{ materiales.number }} de {{ materiales.paginator.num_pages }}.
+                    </span>
+            
+                    {% if materiales.has_next %}
+                        <a href="?page={{ materiales.next_page_number }}&search={{ search_query }}">Siguiente</a>
+                        <a href="?page={{ materiales.paginator.num_pages }}&search={{ search_query }}">Última &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div><br><br><br>
+    <div class="col-md-4">
+        <div class="container_form">
+            <form id="registrationForm" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div id="step1" class="form-group">
+                    <label for="{{ field.id_for_label }}" class="">{{ field.label }}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+                <div class="buttons">
+                    <button type="submit">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

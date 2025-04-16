@@ -1,0 +1,103 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+{% block title %} Ubicaciones {% endblock %}
+{% block p %}
+<h1>Añadir Ubicacion</h1>
+<br>
+{% endblock %}
+
+{% block menuoptions %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{% url 'appBodega:bodega' %}">Regresar</a>
+</li>
+{% endblock %}
+{% block contenido %}
+
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        title: "info",
+        text: "{{ message }}!",
+        icon: "info"
+    });
+</script>
+{% endfor %}
+{% endif %}
+<div class="container-fluid">
+<div class="row">
+    <div class="col-md-8">
+        <div class="container_tablaUser">
+            <form method="GET" action="{% url 'appBodega:newUbication' %}" class="mb-3">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar por Centro o Nombre de Ubicacion" 
+                           value="{{ search_query }}">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+            
+            <!-- Tabla de Ubicaciones -->
+            <table class="table table-hover table-striped table-responsive">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Centro</th>
+                        <th scope="col">Nombre de Ubicación</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ubi in ubicaciones %}
+                    <tr>
+                        <td>{{ ubi.id_centro.name_centro }}</td>  <!-- Muestra el nombre del centro -->
+                        <td>{{ ubi.name_Ubication }}</td>
+                        <td>{{ ubi.description_ubication }}</td>
+                        <td><a href="#" class="btn btn-sm btn-primary">Visualizar</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No se encontraron resultados.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <!-- PAGINACIÓN con búsqueda -->
+            <div class="pagination">
+                <span class="step-links">
+                    {% if ubicaciones.has_previous %}
+                        <a href="?page=1&search={{ search_query }}">&laquo; Primera</a>
+                        <a href="?page={{ ubicaciones.previous_page_number }}&search={{ search_query }}">Anterior</a>
+                    {% endif %}
+            
+                    <span class="current">
+                        Página {{ ubicaciones.number }} de {{ ubicaciones.paginator.num_pages }}.
+                    </span>
+            
+                    {% if ubicaciones.has_next %}
+                        <a href="?page={{ ubicaciones.next_page_number }}&search={{ search_query }}">Siguiente</a>
+                        <a href="?page={{ ubicaciones.paginator.num_pages }}&search={{ search_query }}">Última &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div><br><br><br>
+    <div class="col-md-4">
+        <div class="container_form">
+            <form id="registrationForm" method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                <div id="step1" class="form-group">
+                    <label for="{{ field.id_for_label }}" class="">{{ field.label }}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+                <div class="buttons">
+                    <button type="submit">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}
