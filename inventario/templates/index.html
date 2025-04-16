@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  {% load static %}
+  <!--Metas-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Titulo-->
+  <title>Inventario sena</title>
+  <!--Boostrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!--CSS-->
+  <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+  <!--Favicon-->
+  <link rel="shortcut icon" href="{% static 'img/cgti.png' %}" type="image/x-icon">
+</head>
+
+<body>
+  <div class="wrapper">
+    <nav class="navbar fixed-top bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Fixed top</a>
+      </div>
+    </nav>
+    <div class="container">
+      <section id="about" class="py-5">
+        <h2 class="section-title">SENA <span id="text-green">Inventory</span></h2>
+        <p class="text-center">Web platform for managing our institution's assets.</p>
+        <div class="imagen">
+          <img src="{% static 'img/sena.jpg' %}" alt="imagen">
+        </div>
+      </section>
+      <section id="services" class="py-5">
+        <h2 class="section-title">How does <span id="text-green">it work?</span></h2>
+        <p class="text-center">Our inventory software, powered by automation and artificial intelligence, optimizes
+          asset management by recording and tracking equipment in real time. AI enables predictive analytics, voice
+          recognition, and task automation, improving operational efficiency. This reduces errors, optimizes resources,
+          and facilitates data-driven decision-making.</p>
+      </section>
+      <section id="gallery" class="py-5">
+        <h2 class="section-title">Gallery</h2>
+        <div class="row gallery">
+          <div class="col-md-4 mb-3"><img src="{% static 'img/gale1.jpg' %}" class="img-fluid rounded"
+              alt="Gallery Image"></div>
+          <div class="col-md-4 mb-3"><img src="{% static 'img/gale2.jpg' %}" class="img-fluid rounded"
+              alt="Gallery Image"></div>
+          <div class="col-md-4 mb-3"><img src="{% static 'img/gale3.jpg' %}" class="img-fluid rounded"
+              alt="Gallery Image"></div>
+        </div>
+      </section>
+      <section id="contact" class="py-5">
+        <h2 class="section-title">Contact</h2>
+        <form class="mx-auto" style="max-width: 600px;">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Send</button>
+        </form>
+      </section>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-section">
+        <h2>Sobre Nosotros</h2>
+        <p>
+          Somos una plataforma dedicada a la gestión de inventarios tecnológicos, optimizando procesos y mejorando la
+          eficiencia.
+        </p>
+      </div>
+
+      <div class="footer-section">
+        <h2>Enlaces Rápidos</h2>
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Servicios</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Política de privacidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h2>Nuestros Aliados</h2>
+        <div class="allies">
+          <img src="{% static 'img/cgti.png' %}" alt="Aliado 1">
+          <img src="{% static 'img/aliado1.png' %}" alt="Aliado 2">
+          <img src="{% static 'img/aliado2.png' %}" alt="Aliado 3">
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2025 Todos los derechos reservados.
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
