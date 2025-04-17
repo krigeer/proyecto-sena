@@ -1,7 +1,7 @@
 {% extends 'plantilla.html' %}
 {% block menuoptions %}
-<li class="nav-item"> 
-    <a class="nav-link active" aria-current="page" href="{% url 'gestorCentros:gestorCentros' %}">Regresar</a> 
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{{ request.META.HTTP_REFERER }}">Regresar</a>
 </li>
 {% endblock %}
 {% block p %} <h1></h1>{% endblock %}
@@ -12,22 +12,22 @@
             <i class="fa-solid fa-user fa-5x"></i>
         </div>
         <div class="text-info">
-            <div class="info"><h3>Nombre</h3></div>
-            <div class="info"><h3>Contacto</h3></div>
-            <div class="info"><h3>Rol</h3></div>
+            <div class="info"><h3>{{ usuario.first_name }}</h3></div>
+            <div class="info"><h3>{{usuario.primary_contact}}</h3></div>
+            <div class="info"><h3>{{usuario.id_rol.name_rol}}</h3></div>
         </div>
     </div>
     <div class="info-user">
         <div class="text-info">
-            <div class="info"><h3>Tipo Documento</h3></div>
-            <div class="info"><h3>Numero Documento</h3></div>
-            <div class="info"><h3>correo</h3></div>
+            <div class="info"><h3>{{usuario.id_type_document.name_documento}}</h3></div>
+            <div class="info"><h3>{{usuario.document}}</h3></div>
+            <div class="info"><h3>{{usuario.email}}</h3></div>
         </div>
         <div class="text-info">
-            <div class="info"><h3>Sede</h3></div>
-            <div class="info"><h3>Centro</h3></div>
-            <div class="info"><h3>Fecha registro</h3></div>
-        </div>
+            <div class="info"><h3>{{usuario.id_centro.name_centro}}</h3></div>
+            </div>
+            <div class="info"><h3>Selecciona editar para cambiar la contraseña o datos</h3></div>
+        
     </div>
 </div>
 <div class="editar">

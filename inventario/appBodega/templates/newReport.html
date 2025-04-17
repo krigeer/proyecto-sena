@@ -1,0 +1,29 @@
+{% extends 'plantilla.html' %}
+{% block title %} Tecnologia {% endblock %}
+{% block p %}
+<h1>Inventariar otros Materiales</h1>
+<br>
+{% endblock %}
+
+{% block menuoptions %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{% url 'appBodega:bodega' %}">Regresar</a>
+</li>
+{% endblock %}
+{% block contenido %}
+    <div class="container_form">
+        <form id="registrationForm" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div id="step1" class="form-group">
+                <label for="{{ field.id_for_label }}" class="">{{ field.label }}</label>
+                {{field}}
+            </div>
+            {% endfor %}
+            <div class="buttons">
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

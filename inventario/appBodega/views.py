@@ -7,14 +7,31 @@ from inventario.models import Tecnology, Material_Didactico
 from inventario import models
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import base64
+import io
 
 def index(request):
     #valida que este logueado 
+    if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')  # Redirige si no está logueado
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')  # Por si falla
     usuario = request.session.get('NombreUsuario','NO')
-    # inventarios = Inventario.objects.filter(sede=usuario.sede)
-    # if not request.session.get('is_authenticated'):
-    #     return redirect('/ingresar/') #redirige si no esta logeado
-    return render(request, 'bodega.html', {'user': usuario})
+    
+    context = {
+        'user': usuario,
+        'app': 'appBodega',
+        'id_user': id_usuario,
+        }
+    return render(request, 'bodega.html', context) 
 
 def newTecnologi(request):
     if not request.session.get('is_authenticated'):
@@ -162,6 +179,15 @@ def newUbication(request):
     })
 
 def prestamo(request):
+    if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')  # Redirige si no está logueado
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')
     if request.method == 'POST':
         form = forms.Prestamo(request.POST)
         if form.is_valid():
@@ -177,13 +203,117 @@ def prestamo(request):
 
 
 def visualizar(request, id):
+    if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')  # Redirige si no está logueado
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')
     context = {
-        'centros': centro.objects.all(),  # Obtener todos los centros
+        'centros': models.centro.objects.all(),  # Obtener todos los centros
         'ubicaciones': models.Ubication.objects.all(),  # Obtener todas las ubicaciones
         'tecnologias': get_object_or_404(models.Tecnology, idTecnology=id),  # Obtener todas las tecnologías
         'materiales': models.Material_Didactico.objects.all(),  # Obtener todos los materiales didácticos
     }
     return render(request, 'visualizar.html', context)
 
-def visualizar(request, id):
-    return render(request, 'detalles.html')
+def mesaAyuda(request):
+    if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')
+
+    # Obtener reportes
+    reportes = models.Report.objects.select_related('id_user').all().values(
+        'id_user__first_name', 'id_user__last_name'
+    )
+    df = pd.DataFrame(reportes)
+    df["nombre_completo"] = df["id_user__first_name"]
+    conteo = df["nombre_completo"].value_counts()
+
+    # Gráfico de barras (usuarios)
+    grafico_1 = generar_grafico_barras(conteo, 'Usuarios con más reportes', 'Cantidad de reportes')
+
+    # Gráfico de torta (tecnología con más reportes)
+    reportes_tec = models.Report.objects.filter(idTecnology__isnull=False).select_related('idTecnology').values('idTecnology__idTecnology')
+    df_tec = pd.DataFrame(reportes_tec)
+    conteo_tec = df_tec['idTecnology__idTecnology'].value_counts()
+    grafico_2 = generar_grafico_torta(conteo_tec, 'Tecnología más reportada')
+
+    # Gráfico de torta (material didáctico con más reportes)
+    reportes_mat = models.Report.objects.filter(idMaterial_didactico__isnull=False).select_related('idMaterial_didactico').values('idMaterial_didactico__idMaterial_didactico')
+    df_mat = pd.DataFrame(reportes_mat)
+    conteo_mat = df_mat['idMaterial_didactico__idMaterial_didactico'].value_counts()
+    grafico_3 = generar_grafico_torta(conteo_mat, 'Material didáctico más reportado')
+
+    context = {
+        'usuario': usuario,
+        'grafico_1': grafico_1,
+        'grafico_2': grafico_2,
+        'grafico_3': grafico_3
+    }
+
+    return render(request, 'mesaAyuda.html', context)
+
+
+def generar_grafico_barras(conteo, titulo, ylabel):
+    if conteo.empty:
+        return ""
+    plt.figure(figsize=(8, 5))
+    conteo.plot(kind='bar', color='steelblue')
+    plt.title(titulo)
+    plt.ylabel(ylabel)
+    plt.xticks(rotation=45)
+    buffer = io.BytesIO()
+    plt.tight_layout()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    img = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    plt.close()
+    return img
+
+
+def generar_grafico_torta(conteo, titulo):
+    if conteo.empty:
+        return ""
+    plt.figure(figsize=(6, 6))
+    conteo.plot(kind='pie', autopct='%1.1f%%', startangle=90)
+    plt.title(titulo)
+    plt.ylabel('')
+    buffer = io.BytesIO()
+    plt.tight_layout()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    img = base64.b64encode(buffer.getvalue()).decode('utf-8')
+    plt.close()
+    return img
+
+def newReporte(request):
+    if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')  # Redirige si no está logueado
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')  # Por si falla
+    usuario = request.session.get('NombreUsuario','NO')
+    if request.method == 'POST':
+        form = forms.ReporteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Reporte creado exitosamente')
+            return redirect('index')
+    else:
+        form = forms.ReporteForm()
+    return render(request, 'newReport.html',  {'form': form, 'id_user': id_usuario})
+

@@ -11,8 +11,14 @@ def inicio(request):
 
 def registerSede(request):
     if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')  # Redirige si no está logueado
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
         return redirect('/ingresar/')
-    usuario = request.session.get('NombreUsuario','No se encuentro un nombre')
     if request.method == "POST":
         form = forms.NewSede(request.POST)
         if form.is_valid():

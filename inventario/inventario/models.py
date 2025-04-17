@@ -188,3 +188,44 @@ class Lend(models.Model):
     date_return = models.DateTimeField(null=True, default=None)
     def __str__(self):
         return str(self.idLend)
+    
+
+# /////////////////////////////////////////////// REPORTES ///////////////////////////////////////////////////////////////////////////
+
+#tabla para los tipos de reportes: fallas en equipo, instalacion, bloqueos, etc
+
+class Type_report(models.Model):
+    id_type_report = models.AutoField(primary_key=True)
+    name_type_report = models.CharField(max_length=100, null=False, unique=True)
+    def __str__(self):
+        return str(self.name_type_report)
+
+#tabla para el estado de los reportes: abierto, cerrado, en proceso
+class Status_report(models.Model):
+    id_status_report = models.AutoField(primary_key=True)
+    name_status_report = models.CharField(max_length=100, null=False, unique=True)
+    def __str__(self):
+        return str(self.name_status_report)
+    
+#prioridad del reporte: alta, media, baja
+class Priority_report(models.Model):
+    id_priority_report = models.AutoField(primary_key=True)
+    name_priority_report = models.CharField(max_length=100, null=False, unique=True)
+    def __str__(self):
+        return str(self.name_priority_report)
+    
+#tabla para el guardo de reportes de tecnologia y material didactico
+class Report(models.Model):
+    id_report = models.AutoField(primary_key=True)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_centro = models.ForeignKey(centro, on_delete=models.CASCADE)
+    id_ubication = models.ForeignKey(Ubication, on_delete=models.CASCADE)
+    idTecnology = models.ForeignKey(Tecnology, on_delete=models.CASCADE, null=True)
+    idMaterial_didactico = models.ForeignKey(Material_Didactico, on_delete=models.CASCADE, null=True)
+    id_status_report = models.ForeignKey(Status_report, on_delete=models.CASCADE)
+    observation = models.TextField()
+    id_priority_report = models.ForeignKey(Priority_report, on_delete=models.CASCADE)
+    date_report = models.DateTimeField(auto_now=True)
+    id_type_report = models.ForeignKey('Type_report', on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.id_report)

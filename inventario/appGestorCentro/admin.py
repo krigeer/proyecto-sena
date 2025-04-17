@@ -20,4 +20,10 @@ admin.site.register(models.Type_technologi)
 admin.site.register(models.Markes)
 
 
+admin.site.register(models.Type_report)
+admin.site.register(models.Status_report)
+admin.site.register(models.Priority_report)
+admin.site.register(models.Report)
+
+
 

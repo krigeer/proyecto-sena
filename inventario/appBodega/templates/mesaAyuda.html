@@ -1,0 +1,114 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+{% block title %}Mesa de Ayuda{% endblock %}
+{% block menuoptions %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{% url 'appBodega:bodega' %}">Regresar</a>
+</li>
+{% endblock %}
+{% block p %}
+<h3>Historico de reportes</h3>
+<br>
+{% endblock %}
+{% block contenido %}
+<div class="container_graficos">
+    <div class="card">{% if grafico_1 %}
+        <img src="data:image/png;base64,{{ grafico_1 }}" alt="Gráfico ">
+      {% else %}
+        <p>No hay datos para mostrar.</p>
+      {% endif %}</div>
+    <div class="card">{% if grafico_2 %}
+        <img src="data:image/png;base64,{{ grafico_2 }}" alt="Gráfico">
+      {% else %}
+        <p>No hay datos para mostrar.</p>
+      {% endif %}</div>
+    <div class="card">{% if grafico_3 %}
+        <img src="data:image/png;base64,{{ grafico_3 }}" alt="Gráfico">
+      {% else %}
+        <p>No hay datos para mostrar.</p>
+      {% endif %}</div>
+    <div class="card">{% if grafico_4 %}
+        <img src="data:image/png;base64,{{ grafico_4 }}" alt="Gráfico">
+      {% else %}
+        <p>No hay datos para mostrar.</p>
+      {% endif %}</div>
+</div>
+<div class="titulo-graficos">
+    <h3>Casos Reportados</h3>
+</div>
+<div class="container_graficos">
+    <div class="card"><h3>Nuevos</h3></div>
+    <div class="card" id="fondoAzul"><h3>Cerrados</h3></div>
+    <div class="card" id="fondoRojo"><h3>Abiertos</h3></div>
+</div>
+<div class="titulo-graficos">
+    <h3>Asignados a {{usuario}}</h3>
+</div>
+<div class="container_graficos">
+    <div class="card"><i class="fa-solid fa-file" id="ordenCard"></i><a href="" id="a"><h4>Mis Reportes</h4></a></div>
+    <div class="card" ><i class="fa-solid fa-plus" id="ordenCard"></i><a href="{% url 'appBodega:newReport' %}" id="a"><h4>Crear Reporte</h4></a></div>
+</div>
+<div class="titulo-graficos">
+    <h3>Reportes {{estado_reporte}}</h3>
+</div>
+<div class="container_tabla-reporte">
+    <div class="busqueda">
+        <div class="filtros">
+        </div>
+        <div class="filtros"></div>
+        <div class="filtros">
+            <form method="GET" action="{% url 'appBodega:mesaAyuda' %}" class="mb-3">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Buscar por solicitante, asignado" 
+                           value="{{ search_query }}">
+                    <button type="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Usuario</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reporte in reportes %}
+            <tr>
+                <th scope="row">{{ reporte.id }}</th>
+                <td>{{ reporte.fecha }}</td>
+                <td>{{ reporte.usuario }}</td>
+                <td>{{ reporte.descripcion }}</td>
+                <td>{{ reporte.estado }}</td>
+                <td><a href="{% url 'appBodega:detalle_reporte' reporte.id %}">Ver Detalles</a></td>
+            </tr>
+            {% endfor %}
+      </table>
+      <div class="pagination">
+        <span class="step-links">
+            {% if ubicaciones.has_previous %}
+                <a href="?page=1&search={{ search_query }}">&laquo; Primera</a>
+                <a href="?page={{ ubicaciones.previous_page_number }}&search={{ search_query }}">Anterior</a>
+            {% endif %}
+    
+            <span class="current">
+                Página {{ ubicaciones.number }} de {{ ubicaciones.paginator.num_pages }}.
+            </span>
+    
+            {% if ubicaciones.has_next %}
+                <a href="?page={{ ubicaciones.next_page_number }}&search={{ search_query }}">Siguiente</a>
+                <a href="?page={{ ubicaciones.paginator.num_pages }}&search={{ search_query }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+<a href=""><div class="qr-code">
+    <video src="{% static 'video/ia.mp4' %}" autoplay="true" muted="true" loop="true" width="50%"></video>
+</div></a>
+
+{% endblock %}

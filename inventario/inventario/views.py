@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect, get_object_or_404
 from . import forms, models
 from django.contrib.auth import login  as auth_login
 from django.contrib.auth.models import User
@@ -64,3 +64,18 @@ def login(request):
         form = forms.Login()
 
     return render(request, 'ingresar.html', {'form': form})
+
+
+def ajustes(request, id):
+    if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')  # Redirige si no está logueado
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')  # Por si falla
+    context ={'usuario': usuario,}
+    return render(request, 'users.html',context)
+

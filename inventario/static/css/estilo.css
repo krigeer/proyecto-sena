@@ -14,7 +14,8 @@
     --verdeClaro:  #5eb319;
     --footer: #9e9d9d;
     --footer2: #111;
-    --azul: rgb(27, 27, 238);
+    --azul: rgb(21, 21, 235);
+    --rojo: rgb(219, 35, 35);
     --header: #ececec;
 }
 .wrapper{
@@ -345,10 +346,9 @@ h1 {
 /* Tabla usuarios */
 .container_tablaUser{
     width: 90%;
-    height: 90vh;
+    height: 90%;
     background-color: var(--header);
     border-radius: 10px;
-    box-shadow: 0 14px 16px rgba(97, 177, 90, 0.514), 0 1px 3px rgba(97, 177, 90, 0.514);  /* Suave y elegante */
     overflow-y: scroll;
 }
 
@@ -433,8 +433,32 @@ h1 {
         grid-template-columns: 1fr;
         
     }
+    .container-responsive{
+        height: 200vh;
+        margin-bottom: 100px;
+    }
 }
-
+.container-responsive{
+    width: 90%;
+    height: 100vh;
+    display: flex;
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin-bottom: 100px;
+}
+.infografia{
+    width: 100%;
+    height: 100%;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--blanco);
+    transition: 0.5s all linear;
+    border-radius: 10px;
+    cursor: pointer;
+}
 .inventory-item {
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -457,4 +481,112 @@ h1 {
 
 .ibutton:hover {
     background-color: #218838;
+}
+
+/*  /////////////////////////  pagina mesa ayuda, graficos, etc  */
+.container_graficos{
+    width: 90%;
+    height: 50vh;
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    margin-bottom: 50px;
+}
+.container_graficos .card{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--blanco);
+    background-color: var(--verdeClaro);
+    transition: 0.5s all linear;
+    border-radius: 10px;
+    cursor: pointer;
+    overflow: hidden;
+}
+.card:hover{
+    background-color: var(--verdeOscuro);
+    transform: translateY(-5px);
+    box-shadow: 0 14px 16px rgba(97, 177, 90, 0.514), 0 1px 3px rgba(97, 177, 90, 0.514);  /* Suave y elegante */
+}
+.card img{
+    width: 100%;
+    height: 100%;
+
+}
+.titulo-graficos{
+    width: 100%;
+    height: 10vh;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.container_tabla-reporte{
+    width: 100%;
+    height: 40vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-bottom: 50px;
+}
+.busqueda{
+    width: 90%;
+    height: 6vh;
+    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 10px;
+    margin-bottom: 50px;
+}
+.filtros{
+    width: 100%;
+    height: 100%;
+    transition: 0.5s all linear;
+    border-radius: 10px;
+}
+#fondoAzul{
+    background-color: var(--azul);
+}
+#fondoRojo{
+    background-color: var(--rojo);
+}
+#fondoNegro{
+    background-color: var(--footer2);
+}
+#ordenCard{
+    font-size: 80px;
+    margin-bottom: 10px;
+}
+#a{
+    color: var(--blanco);
+    text-decoration: none;
+}
+
+.qr-code {
+    position: fixed;
+    right: 0.2rem;
+    bottom: 0.2rem;
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100% 10% 0% 0;
+    overflow: hidden;
+    text-align: center;
+    transition:  0.15s border-radius linear;
+    cursor: pointer;
+}
+.qr-code:hover{
+    border-radius: 5px;
+}
+@media (max-width: 768px) {
+   .qr-code {
+        width: 100px;
+        height: 100px;
+    }
+
 }

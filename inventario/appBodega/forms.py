@@ -159,3 +159,11 @@ class Prestamo(forms.ModelForm):
     class Meta:
         model = models.Lend
         fields = ['id_user','id_technologi','idMaterial_didactico','observation']
+
+
+class ReporteForm(forms.ModelForm):
+    class Meta:
+        model = models.Report
+        fields = '__all__'
+        widgets = {
+            }
