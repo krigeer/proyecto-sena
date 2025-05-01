@@ -8,6 +8,7 @@ urlpatterns = [
     path('ingresar/', views.login, name='ingresar'),
     path('gestorCentro/', include('appGestorCentro.urls'), name='gestorCentro'),
     path('bodega/', include('appBodega.urls'), name='bodega'),
+    path('Lora/', include('appIA.urls'), name='ia'),
     path('ajustes/<int:id>/', views.ajustes, name='ajustes'),
     path('salir', LogoutView.as_view(next_page='ingresar'), name='salir'),
 ]

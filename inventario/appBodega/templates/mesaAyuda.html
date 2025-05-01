@@ -7,32 +7,8 @@
 </li>
 {% endblock %}
 {% block p %}
-<h3>Historico de reportes</h3>
-<br>
 {% endblock %}
 {% block contenido %}
-<div class="container_graficos">
-    <div class="card">{% if grafico_1 %}
-        <img src="data:image/png;base64,{{ grafico_1 }}" alt="Gráfico ">
-      {% else %}
-        <p>No hay datos para mostrar.</p>
-      {% endif %}</div>
-    <div class="card">{% if grafico_2 %}
-        <img src="data:image/png;base64,{{ grafico_2 }}" alt="Gráfico">
-      {% else %}
-        <p>No hay datos para mostrar.</p>
-      {% endif %}</div>
-    <div class="card">{% if grafico_3 %}
-        <img src="data:image/png;base64,{{ grafico_3 }}" alt="Gráfico">
-      {% else %}
-        <p>No hay datos para mostrar.</p>
-      {% endif %}</div>
-    <div class="card">{% if grafico_4 %}
-        <img src="data:image/png;base64,{{ grafico_4 }}" alt="Gráfico">
-      {% else %}
-        <p>No hay datos para mostrar.</p>
-      {% endif %}</div>
-</div>
 <div class="titulo-graficos">
     <h3>Casos Reportados</h3>
 </div>
@@ -59,7 +35,7 @@
         <div class="filtros">
             <form method="GET" action="{% url 'appBodega:mesaAyuda' %}" class="mb-3">
                 <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Buscar por solicitante, asignado" 
+                    <input type="text" name="search" class="form-control" placeholder="Buscar por solicitante, Centro, Cedula" 
                            value="{{ search_query }}">
                     <button type="submit" class="btn btn-primary">Buscar</button>
                 </div>
@@ -71,21 +47,23 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Fecha</th>
-                <th scope="col">Usuario</th>
-                <th scope="col">Descripción</th>
+                <th scope="col">Solicitante</th>
+                <th scope="col">Centro</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Prioridad</th>
                 <th scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
             {% for reporte in reportes %}
             <tr>
-                <th scope="row">{{ reporte.id }}</th>
-                <td>{{ reporte.fecha }}</td>
-                <td>{{ reporte.usuario }}</td>
-                <td>{{ reporte.descripcion }}</td>
-                <td>{{ reporte.estado }}</td>
-                <td><a href="{% url 'appBodega:detalle_reporte' reporte.id %}">Ver Detalles</a></td>
+                <th scope="row">{{ reporte.id_report }}</th>
+                <td>{{ reporte.date_report }}</td>
+                <td>{{ reporte.id_user.first_name }}</td>
+                <td>{{ reporte.id_centro.name_centro }}</td>
+                <td>{{ reporte.id_status_report.name_status_report }}</td>
+                <td>{{ reporte.id_priority_report.name_priority_report }}</td>
+                <td><a href="{% url 'appBodega:detalle_reporte' reporte.id_report %}">Ver Detalles</a></td>
             </tr>
             {% endfor %}
       </table>
@@ -107,7 +85,7 @@
         </span>
     </div>
 </div>
-<a href=""><div class="qr-code">
+<a href="{% url 'appIA:lora' %}"><div class="qr-code">
     <video src="{% static 'video/ia.mp4' %}" autoplay="true" muted="true" loop="true" width="50%"></video>
 </div></a>
 

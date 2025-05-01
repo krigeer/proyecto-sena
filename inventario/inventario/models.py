@@ -229,3 +229,114 @@ class Report(models.Model):
     id_type_report = models.ForeignKey('Type_report', on_delete=models.CASCADE)
     def __str__(self):
         return str(self.id_report)
+    
+
+# ia
+class languaje(models.Model):
+    id_languaje = models.AutoField(primary_key=True)
+    name_languaje = models.CharField(max_length=100, null=False, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name_languaje
+   
+
+class configuration(models.Model):
+    id_configuration = models.AutoField(primary_key=True)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_languaje = models.ForeignKey(languaje, on_delete=models.CASCADE)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name_configuration
+
+class Coversation(models.Model):
+    id = models.AutoField(primary_key=True)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    id_configuration = models.ForeignKey(configuration, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField()
+    context = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+class Questions(models.Model):
+    id = models.AutoField(primary_key=True)
+    conversation_id = models.CharField(max_length=100, unique=True)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE)
+    question_user = models.TextField()
+    answer_ia = models.TextField()
+    correct_answer = models.TextField()
+    context_question = models.TextField()
+    metadatas = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.correct_answer
+    
+class Tag(models.Model):
+    id_tag = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100, unique=True)
+    descripcion = models.TextField(null=True, blank=True)
+    
+    def __str__(self):
+        return self.nombre
+    
+    class Meta:
+        verbose_name_plural = "Tags"
+
+class Categoria(models.Model):
+    id_categoria = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=100, unique=True)
+    descripcion = models.TextField()
+    
+    def __str__(self):
+        return self.nombre
+
+class NivelDificultad(models.Model):
+    id_nivel = models.AutoField(primary_key=True)
+    nombre = models.CharField(max_length=50, unique=True)
+    valor_numerico = models.IntegerField(default=1)
+    
+    def __str__(self):
+        return self.nombre
+    
+    class Meta:
+        verbose_name_plural = "Niveles de Dificultad"
+
+class Aprendizaje(models.Model):
+    id_aprendizaje = models.AutoField(primary_key=True)
+    prompt = models.TextField(help_text="Texto de entrada para el modelo")
+    respuesta_esperada = models.TextField(help_text="Respuesta ideal para este prompt")
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE, related_name='aprendizajes')
+    dificultad = models.ForeignKey(NivelDificultad, on_delete=models.CASCADE, related_name='aprendizajes')
+    tags = models.ManyToManyField(Tag, related_name='aprendizajes')
+    palabras_clave = models.JSONField(null=True, blank=True, help_text="Lista de palabras clave  aprendizaje")
+    contexto = models.TextField(null=True, blank=True, help_text="Información de contexto adicional")
+    activo = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.categoria} - {self.prompt[:50]}..."
+    
+    class Meta:
+        verbose_name_plural = "Aprendizajes"
+
+class EjemploInteraccion(models.Model):
+    id_ejemplo = models.AutoField(primary_key=True)
+    aprendizaje = models.ForeignKey(Aprendizaje, on_delete=models.CASCADE, related_name='ejemplos')
+    consulta_usuario = models.TextField(help_text="Ejemplo de consulta del usuario")
+    respuesta_modelo = models.TextField(help_text="Respuesta apropiada del modelo")
+    contexto_previo = models.TextField(null=True, blank=True, help_text="Interacción previa relevante")
+    notas = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"Ejemplo para {self.aprendizaje.categoria} - {self.consulta_usuario[:30]}..."

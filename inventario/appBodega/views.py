@@ -214,9 +214,6 @@ def visualizar(request, id):
         return redirect('/ingresar/')
     context = {
         'centros': models.centro.objects.all(),  # Obtener todos los centros
-        'ubicaciones': models.Ubication.objects.all(),  # Obtener todas las ubicaciones
-        'tecnologias': get_object_or_404(models.Tecnology, idTecnology=id),  # Obtener todas las tecnologías
-        'materiales': models.Material_Didactico.objects.all(),  # Obtener todos los materiales didácticos
     }
     return render(request, 'visualizar.html', context)
 
@@ -230,6 +227,27 @@ def mesaAyuda(request):
         usuario = models.User.objects.get(id_user=id_usuario)
     except models.User.DoesNotExist:
         return redirect('/ingresar/')
+    
+    # OBTENER EL TÉRMINO DE BÚSQUEDA
+    search_query = request.GET.get('search', '')
+
+    #FILTRAR UBICACIONES SI HAY BÚSQUEDA
+    ubicaciones = models.Report.objects.all()
+    # if usuario.id_rol.name_rol == 'gestorCentros':  # Si tienes ese rol
+    #     ubicaciones = Material_Didactico.objects.select_related('id_Place').all()
+    # else:
+    #     materiales = Material_Didactico.objects.select_related('id_Place').filter(idUbication__id_centro=usuario.id_centro)
+    if search_query:
+        ubicaciones = ubicaciones.filter(
+            Q(id_user__first_name__icontains=search_query) |  
+            Q(id_centro__name_centro__icontains=search_query) | 
+            Q(id_user__document__icontains=search_query)
+        )
+
+    # PAGINACIÓN (30 ELEMENTOS POR PGINA)
+    paginator = Paginator(ubicaciones, 30)  
+    page_number = request.GET.get('page')  
+    page_obj = paginator.get_page(page_number)  
 
     # Obtener reportes
     reportes = models.Report.objects.select_related('id_user').all().values(
@@ -240,25 +258,29 @@ def mesaAyuda(request):
     conteo = df["nombre_completo"].value_counts()
 
     # Gráfico de barras (usuarios)
-    grafico_1 = generar_grafico_barras(conteo, 'Usuarios con más reportes', 'Cantidad de reportes')
+    # grafico_1 = generar_grafico_barras(conteo, 'Usuarios con más reportes', 'Cantidad de reportes')
 
-    # Gráfico de torta (tecnología con más reportes)
-    reportes_tec = models.Report.objects.filter(idTecnology__isnull=False).select_related('idTecnology').values('idTecnology__idTecnology')
-    df_tec = pd.DataFrame(reportes_tec)
-    conteo_tec = df_tec['idTecnology__idTecnology'].value_counts()
-    grafico_2 = generar_grafico_torta(conteo_tec, 'Tecnología más reportada')
+    # # Gráfico de torta (tecnología con más reportes)
+    # reportes_tec = models.Report.objects.filter(idTecnology__isnull=False).select_related('idTecnology').values('idTecnology__idTecnology')
+    # df_tec = pd.DataFrame(reportes_tec)
+    # conteo_tec = df_tec['idTecnology__idTecnology'].value_counts()
+    # grafico_2 = generar_grafico_torta(conteo_tec, 'Tecnología más reportada')
 
-    # Gráfico de torta (material didáctico con más reportes)
-    reportes_mat = models.Report.objects.filter(idMaterial_didactico__isnull=False).select_related('idMaterial_didactico').values('idMaterial_didactico__idMaterial_didactico')
-    df_mat = pd.DataFrame(reportes_mat)
-    conteo_mat = df_mat['idMaterial_didactico__idMaterial_didactico'].value_counts()
-    grafico_3 = generar_grafico_torta(conteo_mat, 'Material didáctico más reportado')
+    # # Gráfico de torta (material didáctico con más reportes)
+    # reportes_mat = models.Report.objects.filter(idMaterial_didactico__isnull=False).select_related('idMaterial_didactico').values('idMaterial_didactico__idMaterial_didactico')
+    # df_mat = pd.DataFrame(reportes_mat)
+    # conteo_mat = df_mat['idMaterial_didactico__idMaterial_didactico'].value_counts()
+    # grafico_3 = generar_grafico_torta(conteo_mat, 'Material didáctico más reportado')
 
+    rereportes = models.Report.objects.all()
     context = {
         'usuario': usuario,
-        'grafico_1': grafico_1,
-        'grafico_2': grafico_2,
-        'grafico_3': grafico_3
+        # 'grafico_1': grafico_1,
+        # 'grafico_2': grafico_2,
+        # 'grafico_3': grafico_3,
+        'reportes': rereportes,
+        'ubicaciones': page_obj,  
+        'search_query': search_query   
     }
 
     return render(request, 'mesaAyuda.html', context)

@@ -1,0 +1,410 @@
+[
+    {
+      "prompt": "Mi computadora no enciende, ¿qué puedo hacer?",
+      "completion": "Verifica si el cable de corriente está bien conectado y si hay luz en el botón de encendido. Si no responde, intenta con otro tomacorriente. En caso de laptops, remueve la batería, mantén presionado el botón de encendido por 30 segundos, y vuelve a intentarlo.",
+      "category": "hardware",
+      "difficulty": "basic",
+      "urgency": "high",
+      "tags": ["power", "startup", "hardware", "troubleshooting"]
+    },
+    {
+      "prompt": "No tengo acceso a internet, ¿qué reviso primero?",
+      "completion": "Revisa si el módem y el router están encendidos con sus luces indicadoras funcionando normalmente. Intenta reiniciarlos desconectándolos por 30 segundos y volviendo a conectarlos. Asegúrate de que tu dispositivo esté correctamente conectado a la red WiFi o mediante cable Ethernet.",
+      "category": "redes",
+      "difficulty": "basic",
+      "urgency": "high",
+      "tags": ["internet", "connectivity", "router", "modem"]
+    },
+    {
+      "prompt": "Me aparece una pantalla azul con errores en Windows",
+      "completion": "La pantalla azul (BSOD) indica un fallo crítico del sistema. Anota el código de error (ej: 0x0000007B). Reinicia la computadora y verifica si hay actualizaciones de Windows o controladores dañados. Si el problema persiste, considera ejecutar el comando 'sfc /scannow' en el símbolo del sistema como administrador.",
+      "category": "software",
+      "difficulty": "intermediate",
+      "urgency": "high",
+      "tags": ["windows", "BSOD", "crash", "system_error"]
+    },
+    {
+      "prompt": "¿Cómo instalo una impresora en Windows 10?",
+      "completion": "Ve a Configuración > Dispositivos > Impresoras y escáneres > Agregar una impresora o escáner. Asegúrate de que la impresora esté encendida y conectada por USB o red WiFi. Windows debería detectarla automáticamente. Si no la encuentra, haz clic en 'La impresora que quiero no está en la lista' y sigue las instrucciones adicionales.",
+      "category": "periféricos",
+      "difficulty": "basic",
+      "urgency": "medium",
+      "tags": ["impresora", "windows", "configuración", "driver"]
+    },
+    {
+      "prompt": "No puedo acceder a una página web específica",
+      "completion": "Intenta borrar la caché del navegador (Ctrl+Shift+Supr) y las cookies. Verifica que la URL esté correctamente escrita. Prueba con otro navegador para descartar problemas del software. Si el sitio funciona con otro navegador, actualiza o reinstala el primero. También puedes probar con otra red para descartar un problema local.",
+      "category": "software",
+      "difficulty": "basic",
+      "urgency": "medium",
+      "tags": ["navegador", "internet", "website", "connectivity"]
+    },
+    {
+      "prompt": "La computadora está muy lenta, ¿qué hago?",
+      "completion": "Revisa las aplicaciones y procesos que consumen muchos recursos usando el Administrador de tareas (Ctrl+Alt+Supr). Desactiva programas innecesarios en el inicio mediante MSConfig. Ejecuta un análisis antivirus y desfragmenta tu disco duro. Considera aumentar la RAM o migrar a un SSD si tienes un disco HDD.",
+      "category": "rendimiento",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["optimización", "velocidad", "sistema", "recursos"]
+    },
+    {
+      "prompt": "¿Qué significa el error 0x80070005 en Windows?",
+      "completion": "El error 0x80070005 indica un problema de permisos de acceso (acceso denegado). Suele aparecer al actualizar Windows o instalar software. Intenta ejecutar el instalador como administrador (clic derecho > Ejecutar como administrador). También puedes revisar los permisos de las carpetas afectadas o deshabilitar temporalmente el antivirus.",
+      "category": "software",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["windows", "error_code", "permissions", "installation"]
+    },
+    {
+      "prompt": "No se escucha el audio en mi portátil",
+      "completion": "Verifica que el volumen no esté en silencio usando el icono de sonido en la barra de tareas. Comprueba que el dispositivo de salida de audio sea el correcto haciendo clic derecho en el icono de sonido > Abrir configuración de sonido. Actualiza los controladores de audio desde el Administrador de dispositivos o la página oficial del fabricante.",
+      "category": "hardware",
+      "difficulty": "basic",
+      "urgency": "medium",
+      "tags": ["audio", "sonido", "drivers", "configuración"]
+    },
+    {
+      "prompt": "¿Cómo comparto archivos entre dos PCs en la misma red?",
+      "completion": "En Windows, activa el Centro de redes y recursos compartidos. Haz clic derecho en la carpeta que deseas compartir > Propiedades > Compartir > Uso compartido avanzado. Activa 'Compartir esta carpeta' y establece los permisos. En el otro PC, abre el Explorador de archivos, navega a Red y busca el equipo compartido. También puedes usar servicios en la nube como OneDrive o Google Drive.",
+      "category": "redes",
+      "difficulty": "intermediate",
+      "urgency": "low",
+      "tags": ["networking", "file_sharing", "windows", "lan"]
+    },
+    {
+      "prompt": "El Excel se cierra solo cuando abro un archivo",
+      "completion": "Esto puede deberse a un complemento dañado o corrupción del archivo. Inicia Excel en modo seguro (ejecuta 'excel /safe' desde Ejecutar con Win+R). Desactiva los complementos en Archivo > Opciones > Complementos. También puedes intentar reparar Office desde Panel de control > Programas > Programas y características > Microsoft Office > Cambiar > Reparar.",
+      "category": "software",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["office", "excel", "crash", "corruption"]
+    },
+    {
+      "prompt": "La pantalla de mi computadora está en negro pero escucho sonidos",
+      "completion": "Esto puede indicar un problema con la tarjeta gráfica o la conexión del monitor. Asegúrate de que el cable del monitor esté correctamente conectado. Prueba conectando un monitor externo. Si usas una laptop, ajusta el brillo con Fn + tecla de brillo. También puedes intentar forzar el reinicio del sistema gráfico con Win+Ctrl+Shift+B.",
+      "category": "hardware",
+      "difficulty": "intermediate",
+      "urgency": "high",
+      "tags": ["display", "monitor", "graphics", "screen"]
+    },
+    {
+      "prompt": "El teclado no responde o algunas teclas no funcionan",
+      "completion": "Verifica que el teclado esté correctamente conectado. Si es inalámbrico, asegúrate de que las baterías estén cargadas. Limpia el teclado para eliminar posible suciedad debajo de las teclas. En laptops, actualiza los controladores del teclado o reinicia la computadora. Como última opción, prueba un teclado externo para identificar si el problema es físico o de software.",
+      "category": "periféricos",
+      "difficulty": "basic",
+      "urgency": "medium",
+      "tags": ["keyboard", "input", "hardware", "driver"]
+    },
+    {
+      "prompt": "¿Cómo puedo liberar espacio en mi disco duro casi lleno?",
+      "completion": "Usa la herramienta Limpieza de disco (busca 'cleanmgr' en el menú Inicio). Desinstala programas que no uses desde Panel de control > Programas. Elimina archivos grandes con WinDirStat o TreeSize. Vacía la Papelera de reciclaje. Mueve fotos y videos a almacenamiento externo o nube. Utiliza Almacenamiento en Windows 10 (Configuración > Sistema > Almacenamiento) para programar limpieza automática.",
+      "category": "mantenimiento",
+      "difficulty": "basic",
+      "urgency": "medium",
+      "tags": ["disk_space", "storage", "cleaning", "optimization"]
+    },
+    {
+      "prompt": "¿Cómo actualizar los controladores de mi tarjeta gráfica NVIDIA?",
+      "completion": "Visita el sitio web oficial de NVIDIA (nvidia.com/drivers). Identifica tu modelo de tarjeta gráfica usando el Administrador de dispositivos o la herramienta GPU-Z. Selecciona tu modelo, sistema operativo y descarga el controlador recomendado. Ejecuta el instalador y sigue las instrucciones. Alternativamente, puedes usar NVIDIA GeForce Experience para actualizaciones automáticas.",
+      "category": "hardware",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["gpu", "drivers", "graphics", "nvidia"]
+    },
+    {
+      "prompt": "¿Por qué mi computadora se apaga de repente sin aviso?",
+      "completion": "El apagado repentino suele ser causado por sobrecalentamiento. Limpia los ventiladores y disipadores de calor para eliminar el polvo acumulado. Verifica que todos los ventiladores funcionen correctamente. Revisa los logs de eventos de Windows para detectar errores de hardware. También podría ser un problema con la fuente de alimentación, la batería defectuosa en laptops, o un cortocircuito interno.",
+      "category": "hardware",
+      "difficulty": "advanced",
+      "urgency": "high",
+      "tags": ["shutdown", "overheating", "power_supply", "cooling"]
+    },
+    {
+      "prompt": "Mi pantalla parpadea constantemente, ¿cómo lo soluciono?",
+      "completion": "Revisa que los cables del monitor estén firmemente conectados. Actualiza los controladores de la tarjeta gráfica desde el sitio web del fabricante. Ajusta la frecuencia de actualización de la pantalla: clic derecho en el escritorio > Configuración de pantalla > Configuración avanzada > Adaptador > Propiedades del monitor. También puede ser causado por programas de terceros o efectos visuales de Windows.",
+      "category": "hardware",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["display", "flicker", "graphics", "monitor"]
+    },
+    {
+      "prompt": "¿Cómo desinstalar completamente un programa que no aparece en Panel de Control?",
+      "completion": "Usa la herramienta 'Revo Uninstaller' (descárgala de su sitio oficial). Esta aplicación elimina no solo el programa sino también los registros y archivos residuales. Alternativamente, puedes usar el modo seguro y eliminar manualmente la carpeta del programa y sus entradas en el registro (usando regedit), pero esto requiere conocimientos avanzados y precaución.",
+      "category": "software",
+      "difficulty": "advanced",
+      "urgency": "low",
+      "tags": ["uninstall", "removal", "software", "registry"]
+    },
+    {
+      "prompt": "¿Cómo restablecer completamente la configuración de red en Windows 10?",
+      "completion": "Abre PowerShell como administrador y ejecuta estos comandos: 'netsh winsock reset', 'netsh int ip reset', 'ipconfig /release', 'ipconfig /renew' y 'ipconfig /flushdns'. Reinicia tu computadora. Alternativamente, ve a Configuración > Red e Internet > Estado > Restablecer red. Esto restablecerá todas las conexiones de red a los valores predeterminados.",
+      "category": "redes",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["network_reset", "windows", "connectivity", "troubleshooting"]
+    },
+    {
+      "prompt": "Mi impresora dice que está en línea pero no imprime nada",
+      "completion": "Verifica la cola de impresión: clic derecho en el icono de impresora > Ver lo que se está imprimiendo > Cancelar todos los documentos. Reinicia el servicio de impresión: Panel de control > Herramientas administrativas > Servicios > Servicio de impresión > Reiniciar. Comprueba que tienes papel y tinta/tóner. Actualiza los controladores de la impresora o intenta desinstalarla y volver a instalarla.",
+      "category": "periféricos",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["printer", "queue", "services", "drivers"]
+    },
+    {
+      "prompt": "¿Cómo puedo hacer un respaldo completo de mi sistema Windows?",
+      "completion": "Usa la herramienta integrada 'Copia de seguridad y restauración' en el Panel de control. Alternativamente, utiliza software especializado como Macrium Reflect o Acronis True Image para crear una imagen del sistema. Para un respaldo simple de tus archivos, usa OneDrive, Google Drive o un disco duro externo. Recuerda guardar también tus contraseñas, marcadores y configuraciones importantes.",
+      "category": "mantenimiento",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["backup", "recovery", "system_image", "data_protection"]
+    },
+    {
+      "prompt": "¿Cómo cambiar la contraseña de mi cuenta de Windows cuando la he olvidado?",
+      "completion": "Si tienes otra cuenta con permisos de administrador, puedes cambiar la contraseña desde Configuración > Cuentas > Opciones de inicio de sesión. Si no, necesitarás una unidad de recuperación de Windows o usar el comando 'net user [nombre_usuario] [nueva_contraseña]' desde el símbolo del sistema en el entorno de recuperación. En último caso, puedes usar herramientas especializadas como Hiren's Boot CD.",
+      "category": "seguridad",
+      "difficulty": "advanced",
+      "urgency": "high",
+      "tags": ["password", "login", "account", "recovery"]
+    },
+    {
+      "prompt": "Mi computadora no detecta el Wi-Fi después de actualizar Windows",
+      "completion": "Verifica que el adaptador Wi-Fi no esté desactivado (modo avión). Revisa el Administrador de dispositivos para comprobar si hay controladores con problemas (icono amarillo). Desinstala y reinstala los controladores del adaptador Wi-Fi. Ejecuta el solucionador de problemas de red: Configuración > Red e Internet > Estado > Solucionador de problemas de red. Como último recurso, realiza un restablecimiento de red completo.",
+      "category": "redes",
+      "difficulty": "intermediate",
+      "urgency": "high",
+      "tags": ["wifi", "drivers", "network_adapter", "windows_update"]
+    },
+    {
+      "prompt": "¿Cómo eliminar virus o malware que mi antivirus no puede detectar?",
+      "completion": "Inicia Windows en modo seguro (mantén F8 durante el arranque). Usa herramientas especializadas como Malwarebytes, AdwCleaner o HitmanPro para realizar un análisis profundo. Estas herramientas pueden detectar malware que los antivirus convencionales no encuentran. Si persiste, considera restaurar Windows a un punto anterior a la infección o, como último recurso, reinstalar el sistema operativo.",
+      "category": "seguridad",
+      "difficulty": "advanced",
+      "urgency": "high",
+      "tags": ["malware", "virus", "removal", "security"]
+    },
+    {
+      "prompt": "Mi computadora se congela aleatoriamente sin mostrar error",
+      "completion": "Los congelamientos aleatorios suelen estar relacionados con problemas de hardware. Verifica la temperatura del sistema con HWMonitor para descartar sobrecalentamiento. Comprueba la memoria RAM con Windows Memory Diagnostic o MemTest86. Revisa el disco duro con la herramienta CHKDSK (chkdsk /f /r). Actualiza el BIOS y los controladores. Si el problema persiste, podría ser la fuente de alimentación o la placa base.",
+      "category": "hardware",
+      "difficulty": "advanced",
+      "urgency": "high",
+      "tags": ["freeze", "crash", "diagnostics", "hardware_failure"]
+    },
+    {
+      "prompt": "Mi computadora no reconoce un dispositivo USB nuevo",
+      "completion": "Intenta con otro puerto USB. Reinicia la computadora con el dispositivo conectado. Verifica si el dispositivo funciona en otra computadora para descartar fallos del hardware. Actualiza los controladores USB desde el Administrador de dispositivos o reinstala el controlador del bus USB: Administrador de dispositivos > Controladores de bus serie universal > desinstalar > reiniciar. En algunos casos, los dispositivos USB necesitan drivers específicos.",
+      "category": "hardware",
+      "difficulty": "basic",
+      "urgency": "medium",
+      "tags": ["usb", "peripheral", "driver", "connectivity"]
+    },
+    {
+      "prompt": "¿Cómo mejorar significativamente la velocidad de arranque de Windows?",
+      "completion": "Reduce los programas de inicio: Administrador de tareas > pestaña Inicio. Migra de un disco HDD a un SSD para la unidad del sistema. Habilita el inicio rápido: Panel de control > Opciones de energía > Elegir el comportamiento de los botones de encendido > Cambiar configuración no disponible > Activar inicio rápido. Mantén actualizado Windows. Desfragmenta el disco duro regularmente (solo para HDD) y elimina archivos temporales con Cleanmgr.",
+      "category": "rendimiento",
+      "difficulty": "intermediate",
+      "urgency": "low",
+      "tags": ["boot_time", "startup", "performance", "optimization"]
+    },
+    {
+      "prompt": "¿Cómo cambiar la resolución de la pantalla cuando solo aparecen opciones limitadas?",
+      "completion": "Si Windows no muestra todas las resoluciones posibles, actualiza los controladores de la tarjeta gráfica desde el sitio web del fabricante. También puedes forzar resoluciones personalizadas usando aplicaciones como Custom Resolution Utility (CRU) o el panel de control específico de tu tarjeta gráfica (NVIDIA Control Panel o AMD Catalyst). Asegúrate de que tu cable (HDMI, DisplayPort, etc.) soporte la resolución deseada.",
+      "category": "hardware",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["display", "resolution", "graphics", "monitor"]
+    },
+    {
+      "prompt": "¿Cómo puedo aumentar la memoria RAM de mi laptop?",
+      "completion": "Primero, verifica si tu laptop tiene ranuras de RAM accesibles y qué tipo soporta (consultando el manual o con herramientas como CPU-Z). Apaga completamente la laptop y desconecta la batería. Localiza el panel de acceso en la parte inferior, quita los tornillos y abre. Inserta los módulos de RAM compatibles en las ranuras disponibles, asegurándote de que encajen correctamente. Algunos modelos tienen RAM soldada y no se puede actualizar.",
+      "category": "hardware",
+      "difficulty": "advanced",
+      "urgency": "low",
+      "tags": ["ram", "upgrade", "memory", "laptop"]
+    },
+    {
+      "prompt": "Mi micrófono no funciona en las videollamadas",
+      "completion": "Verifica que el micrófono no esté silenciado físicamente y en la configuración del sistema. Comprueba la configuración de privacidad: Configuración > Privacidad > Micrófono. Verifica que la aplicación tenga permisos para usar el micrófono. Asegúrate de que el micrófono correcto esté seleccionado como predeterminado. Actualiza los controladores de audio. Si usas auriculares, comprueba que la conexión esté correcta (verde para audio, rosa para micrófono).",
+      "category": "periféricos",
+      "difficulty": "basic",
+      "urgency": "high",
+      "tags": ["microphone", "audio", "conferencing", "peripherals"]
+    },
+    {
+      "prompt": "Mi computadora está muy caliente y los ventiladores hacen mucho ruido",
+      "completion": "Limpia los ventiladores y disipadores de calor con aire comprimido para eliminar el polvo acumulado. Verifica que todos los ventiladores funcionen correctamente. Usa un soporte refrigerante para laptops. Revisa las aplicaciones que consumen muchos recursos con el Administrador de tareas. Considera reemplazar la pasta térmica si la computadora tiene más de 2 años. En casos extremos, reduce la velocidad del procesador a través de la configuración de energía.",
+      "category": "hardware",
+      "difficulty": "intermediate",
+      "urgency": "high",
+      "tags": ["cooling", "overheating", "fans", "thermal"]
+    },
+    {
+      "prompt": "¿Cómo hacer un restablecimiento de fábrica en Windows 10 sin perder archivos personales?",
+      "completion": "Ve a Configuración > Actualización y seguridad > Recuperación > Restablecer este PC > Conservar mis archivos. Windows reinstalará el sistema operativo manteniendo tus archivos personales, pero eliminará las aplicaciones y configuraciones. Asegúrate de tener una copia de seguridad por si acaso y anota qué programas necesitarás reinstalar. El proceso puede tardar hasta una hora dependiendo de tu sistema.",
+      "category": "mantenimiento",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["reset", "recovery", "windows", "troubleshooting"]
+    },
+    {
+      "prompt": "¿Cómo saber si mi disco duro está fallando antes de que deje de funcionar?",
+      "completion": "Utiliza la herramienta CHKDSK (chkdsk /f /r) para buscar sectores defectuosos. Revisa los atributos S.M.A.R.T. del disco con software como CrystalDiskInfo o HD Sentinel. Las señales de advertencia incluyen: ruidos inusuales (clics o chirridos), tiempos de acceso extremadamente lentos, errores frecuentes de lectura/escritura y la aparición repentina de sectores defectuosos. Haz copias de seguridad inmediatamente si sospechas un fallo inminente.",
+      "category": "hardware",
+      "difficulty": "intermediate",
+      "urgency": "high",
+      "tags": ["hard_drive", "failure", "smart", "diagnostics"]
+    },
+    {
+      "prompt": "Windows no arranca y muestra error 'bootmgr is missing'",
+      "completion": "Este error indica problemas con el gestor de arranque. Inserta un medio de instalación de Windows (USB o DVD). Reinicia y arranca desde ese medio. Selecciona 'Reparar el equipo' > 'Solucionar problemas' > 'Opciones avanzadas' > 'Símbolo del sistema'. Ejecuta estos comandos: 'bootrec /fixmbr', 'bootrec /fixboot', y 'bootrec /rebuildbcd'. Si no funciona, puede ser necesario reconstruir completamente el entorno de arranque.",
+      "category": "software",
+      "difficulty": "advanced",
+      "urgency": "high",
+      "tags": ["boot", "bootmgr", "recovery", "startup"]
+    },
+    {
+      "prompt": "Mi laptop no carga la batería aunque esté conectada",
+      "completion": "Verifica si el cargador está correctamente conectado y si el cable no muestra daños físicos. Prueba con otro cargador compatible si es posible. Comprueba si el problema es la batería o el puerto de carga: quita la batería (si es extraíble) y utiliza solo el cargador. Revisa el puerto de carga por posibles daños o suciedad. Actualiza o reinstala los controladores de administración de energía en el Administrador de dispositivos.",
+      "category": "hardware",
+      "difficulty": "intermediate",
+      "urgency": "high",
+      "tags": ["battery", "charging", "power", "laptop"]
+    },
+    {
+      "prompt": "Mi navegador Chrome está extremadamente lento y consume mucha RAM",
+      "completion": "Limpia la caché y las cookies: Configuración > Privacidad y seguridad > Borrar datos de navegación. Desactiva extensiones innecesarias: Configuración > Extensiones. Actualiza Chrome a la última versión. Ejecuta el escáner de malware y adware incorporado: Configuración > Configuración avanzada > Restablecer y limpiar > Limpiar computadora. Limita el número de pestañas abiertas o usa extensiones como 'The Great Suspender' para gestionar el uso de RAM.",
+      "category": "software",
+      "difficulty": "basic",
+      "urgency": "medium",
+      "tags": ["browser", "chrome", "performance", "memory"]
+    },
+    {
+      "prompt": "¿Cómo eliminar un programa de inicio en macOS que no aparece en preferencias?",
+      "completion": "Abre Finder y ve a Aplicaciones > Utilidades > Terminal. Escribe 'cd ~/Library/LaunchAgents' y presiona Enter. Usa 'ls' para ver los archivos. Identifica el archivo .plist relacionado con el programa que quieres eliminar. Usa el comando 'rm nombre_del_archivo.plist' para eliminarlo. También puedes verificar en '/Library/LaunchAgents' y '/Library/LaunchDaemons' para aplicaciones con privilegios del sistema.",
+      "category": "software",
+      "difficulty": "advanced",
+      "urgency": "low",
+      "tags": ["macos", "startup", "terminal", "launchagents"]
+    },
+    {
+      "prompt": "¿Cómo cambiar la contraseña de mi cuenta de Google cuando no puedo acceder?",
+      "completion": "Visita la página de recuperación de cuenta de Google (accounts.google.com/recovery). Ingresa tu dirección de correo y sigue los pasos. Puedes recuperar tu cuenta mediante: un código enviado a tu teléfono registrado, un correo de recuperación alternativo, respondiendo preguntas de seguridad, o verificando la fecha de creación de la cuenta. Si los métodos estándar fallan, completa el formulario de recuperación detallado que Google ofrece como último recurso.",
+      "category": "seguridad",
+      "difficulty": "intermediate",
+      "urgency": "high",
+      "tags": ["google", "password", "account", "recovery"]
+    },
+    {
+      "prompt": "¿Cómo saber si mi memoria RAM está fallando o tiene errores?",
+      "completion": "Usa la herramienta Windows Memory Diagnostic: busca 'diagnóstico de memoria' en el menú Inicio. Alternativamente, utiliza MemTest86+ para un análisis más completo (requiere crear un USB booteable). Síntomas comunes de RAM defectuosa incluyen: pantallas azules aleatorias (BSOD), corrupciones de archivos inexplicables, fallos al iniciar programas, y errores durante la instalación de software. Si el test detecta errores, limpia los contactos de los módulos o reemplaza la RAM.",
+      "category": "hardware",
+      "difficulty": "intermediate",
+      "urgency": "high",
+      "tags": ["ram", "memory", "testing", "diagnostics"]
+    },
+    {
+      "prompt": "Windows tarda mucho en cerrar sesión o apagarse",
+      "completion": "Revisa los servicios y aplicaciones que se ejecutan en segundo plano. Deshabilita programas de inicio innecesarios usando MSConfig o el Administrador de tareas. Actualiza los controladores, especialmente de tarjeta gráfica. Ejecuta el comando 'powercfg /h off' como administrador para desactivar hibernación rápida. Si el problema persiste, verifica los registros de eventos de Windows para identificar servicios específicos que causan demoras: Panel de control > Herramientas administrativas > Visor de eventos.",
+      "category": "software",
+      "difficulty": "intermediate",
+      "urgency": "low",
+      "tags": ["shutdown", "performance", "services", "windows"]
+    },
+    {
+      "prompt": "No puedo abrir archivos adjuntos en Outlook",
+      "completion": "Verifica la configuración de seguridad: Outlook > Archivo > Opciones > Centro de confianza > Configuración del Centro de confianza > Seguridad de datos adjuntos. Asegúrate de que el tipo de archivo no esté bloqueado. Comprueba que tienes instalada la aplicación adecuada para abrir ese tipo de archivo. Guarda el adjunto en el disco antes de intentar abrirlo. Comprueba si tu antivirus está bloqueando la apertura. Repara la instalación de Office desde el Panel de control.",
+      "category": "software",
+      "difficulty": "intermediate",
+      "urgency": "medium",
+      "tags": ["outlook", "email", "attachments", "office"]
+    },
+    {
+      "prompt": "Mi cámara web no funciona en aplicaciones de videoconferencia",
+      "completion": "Verifica la configuración de privacidad: Configuración > Privacidad > Cámara para asegurarte de que las aplicaciones tienen permiso para usar la cámara. Comprueba si la cámara funciona en la aplicación Cámara de Windows. Actualiza los controladores de la cámara desde el Administrador de dispositivos. Verifica que no haya otras aplicaciones usando la cámara simultáneamente. Reinicia la computadora. Si tiene cubierta física o interruptor, asegúrate de que esté abierta/activada.",
+      "category": "periféricos",
+      "difficulty": "basic",
+      "urgency": "high",
+      "tags": ["webcam", "camera", "videoconferencing", "drivers"]
+    },
+    {
+        "prompt": "Mi cámara web no funciona en aplicaciones de videoconferencia",
+        "completion": "Verifica la configuración de privacidad: Configuración > Privacidad > Cámara para asegurarte de que las aplicaciones tienen permiso para usar la cámara. Comprueba si la cámara funciona en la aplicación Cámara de Windows. Actualiza los controladores de la cámara desde el Administrador de dispositivos. Verifica que no haya otras aplicaciones usando la cámara simultáneamente. Reinicia la computadora. Si tiene cubierta física o interruptor, asegúrate de que esté abierta/activada.",
+        "category": "periféricos",
+        "difficulty": "basic",
+        "urgency": "high",
+        "tags": ["webcam", "camera", "videoconferencing", "drivers"]
+      },
+      {
+        "prompt": "No tengo acceso a internet en mi computadora",
+        "completion": "Revisa si el módem y el router están encendidos y funcionando correctamente. Reinicia tu router y verifica la conexión con otro dispositivo. Prueba conectarte por cable Ethernet para descartar problemas de WiFi. Si el problema persiste, contacta con tu proveedor de internet.",
+        "category": "redes",
+        "difficulty": "basic",
+        "urgency": "high",
+        "tags": ["internet", "router", "WiFi", "ethernet"]
+      },
+      {
+        "prompt": "El teclado no responde en mi computadora",
+        "completion": "Verifica si el teclado está correctamente conectado. Si es inalámbrico, asegúrate de que las baterías estén cargadas. Prueba reiniciar la computadora o usar un teclado externo. Si sigue sin funcionar, actualiza los controladores del teclado desde el Administrador de dispositivos.",
+        "category": "periféricos",
+        "difficulty": "basic",
+        "urgency": "medium",
+        "tags": ["keyboard", "drivers", "hardware"]
+      },
+      {
+        "prompt": "La pantalla muestra una línea verde constante",
+        "completion": "Esto puede indicar un problema con el cable del monitor o con la tarjeta gráfica. Prueba desconectar y reconectar el cable. Usa un cable diferente y verifica en otro monitor. Si el problema persiste, actualiza los controladores de la tarjeta gráfica desde el sitio oficial del fabricante.",
+        "category": "hardware",
+        "difficulty": "intermediate",
+        "urgency": "medium",
+        "tags": ["monitor", "graphics", "drivers", "cables"]
+      },
+      {
+        "prompt": "La batería de mi laptop no carga",
+        "completion": "Verifica que el cargador esté conectado correctamente tanto a la laptop como a la toma de corriente. Revisa el puerto de carga por si tiene suciedad o daño. Prueba con otro cargador compatible. Si sigue sin cargar, es posible que la batería necesite ser reemplazada.",
+        "category": "hardware",
+        "difficulty": "basic",
+        "urgency": "high",
+        "tags": ["battery", "laptop", "charger"]
+      },
+      {
+        "prompt": "El micrófono no funciona en mi computadora",
+        "completion": "Verifica que el micrófono esté habilitado: Configuración > Sonido > Entrada y selecciona el dispositivo correcto. Actualiza los controladores del micrófono desde el Administrador de dispositivos. Prueba usarlo en otra aplicación para descartar problemas específicos.",
+        "category": "periféricos",
+        "difficulty": "basic",
+        "urgency": "medium",
+        "tags": ["microphone", "sound", "drivers"]
+      },
+      {
+        "prompt": "El disco duro hace ruidos extraños",
+        "completion": "Esto puede indicar una falla inminente. Haz una copia de seguridad de tus datos inmediatamente. Usa herramientas de diagnóstico de discos para verificar su estado. Si los problemas persisten, considera reemplazar el disco duro lo antes posible.",
+        "category": "hardware",
+        "difficulty": "advanced",
+        "urgency": "high",
+        "tags": ["hard drive", "backup", "diagnostics"]
+      },
+      {
+        "prompt": "Mi impresora no imprime",
+        "completion": "Asegúrate de que la impresora esté encendida y conectada correctamente. Revisa si tiene papel y tinta. Verifica la cola de impresión para ver si hay trabajos detenidos. Actualiza los controladores desde el sitio oficial del fabricante.",
+        "category": "periféricos",
+        "difficulty": "basic",
+        "urgency": "medium",
+        "tags": ["printer", "drivers", "queue"]
+      },
+      {
+        "prompt": "El sistema operativo no inicia",
+        "completion": "Asegúrate de que no hay dispositivos externos conectados que puedan interferir. Accede al BIOS para verificar si el disco de arranque está configurado correctamente. Usa una unidad de recuperación para intentar reparar el sistema.",
+        "category": "software",
+        "difficulty": "advanced",
+        "urgency": "high",
+        "tags": ["operating system", "boot", "recovery"]
+      },
+      {
+        "prompt": "El ventilador de mi computadora hace mucho ruido",
+        "completion": "Revisa si las rejillas de ventilación están obstruidas por polvo y límpialas con aire comprimido. Verifica si el ventilador está funcionando correctamente en la configuración del BIOS. Si el ruido persiste, es posible que necesite ser reemplazado.",
+        "category": "hardware",
+        "difficulty": "intermediate",
+        "urgency": "medium",
+        "tags": ["fan", "cooling", "noise"]
+      }
+  ]

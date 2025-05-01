@@ -19,28 +19,43 @@
 <body>
   <div class="wrapper">
     <!--Carrusel-->
-    <div class="container-corrousel">
-      <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="{% static 'img/sena.jpg' %}" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="{% static 'img/sena.jpg' %}" class="d-block w-100" alt="...">
-          </div>
-          <div class="carousel-item">
-            <img src="{% static 'img/sena.jpg' %}" class="d-block w-100" alt="...">
+    <div id="carouselExampleCaptions" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{% static 'img/banner3.jpg' %}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block" id="text-banner">
+            <h5>Gestiona tus activos con inteligencia</h5>
+            <p>Optimiza tus procesos, reduce errores y toma decisiones inteligentes.</p>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleRide" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+        <div class="carousel-item">
+          <img src="{% static 'img/banner1.png' %}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block" >
+            <h5>Tu inventario en tiempo real</h5>
+            <p>Mantén el control total de tus activos con seguimiento en vivo y análisis predictivos.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'img/banner2.jpg' %}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block" >
+            <h5>Automatización para el éxito</h5>
+            <p>Simplifica la gestión y mejora la productividad con tecnología de inteligencia artificial.</p>
+          </div>
+        </div>
       </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
     <!--fin carrusel-->
     <nav class="navbar sticky-top bg-body-tertiary">
