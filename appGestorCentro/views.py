@@ -3,15 +3,28 @@ from inventario import models
 from . import forms
 # Create your views here.
 def inicio(request):
+    #valida que este logueado 
     if not request.session.get('is_authenticated'):
-        return redirect('/ingresar/')
-    usuario = request.session.get('NombreUsuario','No se encuentro un nombre')
-    return render(request, 'gestorCentros.html', {'user': usuario})
+        return redirect('/ingresar/')  
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')  # Por si falla
+    usuario = request.session.get('NombreUsuario','NO')
+    context = {
+        'user': usuario,
+        'id_user': id_usuario,
+        }
+
+    return render(request, 'gestorCentros.html', context)
 
 
 def registerSede(request):
     if not request.session.get('is_authenticated'):
-        return redirect('/ingresar/')  # Redirige si no está logueado
+        return redirect('/ingresar/')  
 
     id_usuario = request.session.get('user_id')
 
@@ -23,7 +36,7 @@ def registerSede(request):
         form = forms.NewSede(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('appGestorCentro:gestorCentros')  # Redirige a una página de éxito
+            return redirect('appGestorCentro:gestorCentros')  
     else:
         form = forms.NewSede()
     return render(request, 'registerSedes.html', {'form': form, 'usuario': usuario})
@@ -36,7 +49,7 @@ def registerCentro(request):
         form = forms.NewCentro(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('gestorCentros:gestorCentros') 
+            return redirect('appGestorCentro:gestorCentros') 
     else:
         form = forms.NewCentro()
     return render(request, 'registerCentros.html',{'form': form,})

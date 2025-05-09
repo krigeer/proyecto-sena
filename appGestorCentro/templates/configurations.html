@@ -1,0 +1,251 @@
+{% extends 'plantilla.html' %}
+
+{% block title %}Gestión de Sedes{% endblock %}
+
+{% block p %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Gestión de Sedes</h1>
+    <a href="{% url 'appGestorCentro:registroSedes' %}" class="btn btn-success">
+        <i class="bi bi-plus-circle me-1"></i> Nueva Sede
+    </a>
+</div>
+{% endblock %}
+
+{% block menuoptions %}
+<li class="nav-item"> 
+    <a class="nav-link active" aria-current="page" href="{% url 'appGestorCentro:gestorCentros' %}">
+        <i class="bi bi-arrow-left me-1"></i> Regresar
+    </a> 
+</li>
+{% endblock %}
+
+{% block contenido %}
+<div class="card shadow">
+    <div class="card-header bg-white py-3">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h5 class="mb-0 text-primary">Listado de Sedes</h5>
+            </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <input type="text" id="searchInput" class="form-control" placeholder="Buscar sede...">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped" id="tablaSedes">
+                <thead class="table-primary text-dark">
+                    <tr>
+                        <th scope="col" class="sortable" data-sort="name">
+                            <div class="d-flex align-items-center">
+                                Nombre de la sede <i class="bi bi-arrow-down-up ms-1"></i>
+                            </div>
+                        </th>
+                        <th scope="col" class="sortable" data-sort="country">
+                            <div class="d-flex align-items-center">
+                                País <i class="bi bi-arrow-down-up ms-1"></i>
+                            </div>
+                        </th>
+                        <th scope="col" class="sortable" data-sort="department">
+                            <div class="d-flex align-items-center">
+                                Departamento <i class="bi bi-arrow-down-up ms-1"></i>
+                            </div>
+                        </th>
+                        <th scope="col" class="sortable" data-sort="city">
+                            <div class="d-flex align-items-center">
+                                Ciudad <i class="bi bi-arrow-down-up ms-1"></i>
+                            </div>
+                        </th>
+                        <th scope="col">Dirección</th>
+                        <th scope="col">Contacto</th>
+                        <th scope="col" class="text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.name_sede }}</td>
+                        <td>{{ user.id_City.id_Country.name_Country }}</td>
+                        <td>{{ user.id_City.id_department.name_department }}</td>
+                        <td>{{ user.id_City.name_City }}</td>
+                        <td>
+                            <span class="d-inline-block text-truncate" style="max-width: 150px;" 
+                                  title="{{ user.direccion_sede }}">
+                                {{ user.direccion_sede }}
+                            </span>
+                        </td>
+                        <td>{{ user.contact_one }}</td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                <a href="{% url 'appGestorCentro:infoSede' user.id_sede %}" 
+                                   class="btn btn-sm btn-primary" title="Ver detalles">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="{% url 'appGestorCentro:infoSede' user.id_sede %}" 
+                                   class="btn btn-sm btn-warning" title="Editar">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <button type="button" class="btn btn-sm btn-danger" 
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#eliminarModal{{ user.id_sede }}"
+                                        title="Eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Modal para confirmar eliminación -->
+                            <div class="modal fade" id="eliminarModal{{ user.id_sede }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header bg-danger text-white">
+                                            <h5 class="modal-title">Confirmar eliminación</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro que desea eliminar la sede <strong>{{ user.name_sede }}</strong>?
+                                            Esta acción no se puede deshacer.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                            <a href="{% url 'appGestorCentro:registroSedes'  %}" class="btn btn-danger">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center py-4">
+                            <div class="alert alert-info mb-0">
+                                <i class="bi bi-info-circle me-2"></i> No hay sedes registradas.
+                                <a href="{% url 'appGestorCentro:registroSedes' %}" class="alert-link">¿Desea crear una?</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Paginación -->
+        {% if users.has_other_pages %}
+        <nav aria-label="Paginación de sedes" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if users.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ users.previous_page_number }}">Anterior</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Anterior</span>
+                </li>
+                {% endif %}
+                
+                {% for i in users.paginator.page_range %}
+                    {% if users.number == i %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ i }}</span>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if users.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ users.next_page_number }}">Siguiente</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Siguiente</span>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Script para búsqueda -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Búsqueda en tabla
+    const searchInput = document.getElementById('searchInput');
+    const table = document.getElementById('tablaSedes');
+    const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+    
+    searchInput.addEventListener('keyup', function() {
+        const searchTerm = searchInput.value.toLowerCase();
+        
+        for (let i = 0; i < rows.length; i++) {
+            let found = false;
+            const cells = rows[i].getElementsByTagName('td');
+            
+            for (let j = 0; j < cells.length - 1; j++) {
+                if (cells[j].textContent.toLowerCase().indexOf(searchTerm) > -1) {
+                    found = true;
+                    break;
+                }
+            }
+            
+            rows[i].style.display = found ? '' : 'none';
+        }
+    });
+    
+    // Ordenamiento de columnas
+    const sortableHeaders = document.querySelectorAll('.sortable');
+    
+    sortableHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            const sortBy = this.getAttribute('data-sort');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // Determinar el índice de la columna según el atributo data-sort
+            let columnIndex;
+            switch(sortBy) {
+                case 'name': columnIndex = 0; break;
+                case 'country': columnIndex = 1; break;
+                case 'department': columnIndex = 2; break;
+                case 'city': columnIndex = 3; break;
+                default: columnIndex = 0;
+            }
+            
+            // Ordenar las filas
+            rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent.trim();
+                const bValue = b.cells[columnIndex].textContent.trim();
+                return aValue.localeCompare(bValue);
+            });
+            
+            // Si la columna ya está ordenada ascendentemente, invertir el orden
+            if (this.classList.contains('asc')) {
+                rows.reverse();
+                this.classList.remove('asc');
+                this.classList.add('desc');
+                this.querySelector('i').className = 'bi bi-arrow-down ms-1';
+            } else {
+                sortableHeaders.forEach(h => {
+                    h.classList.remove('asc', 'desc');
+                    h.querySelector('i').className = 'bi bi-arrow-down-up ms-1';
+                });
+                this.classList.add('asc');
+                this.querySelector('i').className = 'bi bi-arrow-up ms-1';
+            }
+            
+            // Volver a añadir las filas ordenadas
+            tbody.innerHTML = '';
+            rows.forEach(row => tbody.appendChild(row));
+        });
+    });
+});
+</script>
+{% endblock %}

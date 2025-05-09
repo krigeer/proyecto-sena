@@ -1,0 +1,398 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+{% block title %}Mesa de Ayuda{% endblock %}
+{% block menuoptions %}
+<li class="nav-item">
+    <a class="nav-link active d-flex align-items-center" aria-current="page" href="{% url 'appBodega:bodega' %}">
+        <i class="fa-solid fa-arrow-left me-2"></i>
+        Regresar
+    </a>
+</li>
+{% endblock %}
+
+{% block p %}
+<div class="container-fluid bg-gradient py-4" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));">
+    <div class="container">
+        <h1 class="text-white text-center mb-0">Mesa de Ayuda</h1>
+    </div>
+</div>
+{% endblock %}
+
+{% block contenido %}
+<!-- Dashboard Cards -->
+<div class="container mt-4">
+    <!-- Casos Reportados -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white py-3">
+            <h3 class="m-0 fw-bold" style="color: var(--dark-color);">
+                <i class="fa-solid fa-chart-column me-2" style="color: var(--secondary-color);"></i>
+                Casos Reportados
+            </h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <div class="dashboard-card p-4 h-100 text-center border-end">
+                        <div class="dashboard-icon mb-3">
+                            <i class="fa-solid fa-file-circle-plus fa-3x" style="color: var(--primary-color);"></i>
+                        </div>
+                        <h3 class="counter-value fw-bold">Nuevos</h3>
+                        <div class="counter-number fs-1 fw-bold text-dark" data-count="25">0</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="dashboard-card p-4 h-100 text-center border-end">
+                        <div class="dashboard-icon mb-3">
+                            <i class="fa-solid fa-circle-check fa-3x" style="color: var(--secondary-color);"></i>
+                        </div>
+                        <h3 class="counter-value fw-bold">Cerrados</h3>
+                        <div class="counter-number fs-1 fw-bold text-dark" data-count="18">0</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="dashboard-card p-4 h-100 text-center">
+                        <div class="dashboard-icon mb-3">
+                            <i class="fa-solid fa-clipboard-list fa-3x" style="color: var(--accent-color);"></i>
+                        </div>
+                        <h3 class="counter-value fw-bold">Abiertos</h3>
+                        <div class="counter-number fs-1 fw-bold text-dark" data-count="7">0</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Asignados a Usuario -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white py-3">
+            <h3 class="m-0 fw-bold" style="color: var(--dark-color);">
+                <i class="fa-solid fa-user-check me-2" style="color: var(--secondary-color);"></i>
+                Asignados a {{usuario}}
+            </h3>
+        </div>
+        <div class="card-body p-0">
+            <div class="row g-0">
+                <div class="col-md-6">
+                    <a href="" class="text-decoration-none">
+                        <div class="action-card p-4 h-100 text-center border-end">
+                            <div class="action-icon mb-3">
+                                <i class="fa-solid fa-file fa-3x" style="color: var(--info-color);"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark">Mis Reportes</h4>
+                            <p class="text-muted mb-0">Ver todos tus reportes asignados</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'appBodega:newReport' %}" class="text-decoration-none">
+                        <div class="action-card p-4 h-100 text-center">
+                            <div class="action-icon mb-3">
+                                <i class="fa-solid fa-plus fa-3x" style="color: var(--primary-color);"></i>
+                            </div>
+                            <h4 class="fw-bold text-dark">Crear Reporte</h4>
+                            <p class="text-muted mb-0">Generar un nuevo caso de soporte</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reportes Table -->
+    <div class="card shadow-sm border-0 mb-4">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center py-3">
+            <h3 class="m-0 fw-bold" style="color: var(--dark-color);">
+                <i class="fa-solid fa-list-check me-2" style="color: var(--secondary-color);"></i>
+                Reportes {{estado_reporte}}
+            </h3>
+            <form method="GET" action="{% url 'appBodega:mesaAyuda' %}" class="d-flex align-items-center m-0 search-form">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" 
+                           placeholder="Buscar por solicitante, Centro, Cedula" 
+                           value="{{ search_query }}">
+                    <button type="submit" class="btn btn-primary" style="background-color: var(--secondary-color); border-color: var(--secondary-color);">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead style="background-color: var(--light-color);">
+                        <tr>
+                            <th scope="col" style="border-top-left-radius: 8px;">ID</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col">Solicitante</th>
+                            <th scope="col">Centro</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Prioridad</th>
+                            <th scope="col" style="border-top-right-radius: 8px;">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reporte in reportes %}
+                        <tr>
+                            <th scope="row">#{{ reporte.id_report }}</th>
+                            <td>{{ reporte.date_report }}</td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-mini me-2" style="width: 32px; height: 32px; background-color: var(--light-color); border-radius: 50%; display: flex; justify-content: center; align-items: center;">
+                                        <i class="fa-solid fa-user" style="color: var(--secondary-color);"></i>
+                                    </div>
+                                    {{ reporte.id_user.first_name }}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge rounded-pill bg-light text-dark">
+                                    <i class="fa-solid fa-building me-1"></i>
+                                    {{ reporte.id_centro.name_centro }}
+                                </span>
+                            </td>
+                            <td>
+                                {% if reporte.id_status_report.name_status_report == 'Abierto' %}
+                                    <span class="badge rounded-pill" style="background-color: var(--accent-color);">
+                                        <i class="fa-solid fa-exclamation-circle me-1"></i>
+                                        {{ reporte.id_status_report.name_status_report }}
+                                    </span>
+                                {% elif reporte.id_status_report.name_status_report == 'En proceso' %}
+                                    <span class="badge rounded-pill" style="background-color: var(--warning-color);">
+                                        <i class="fa-solid fa-spinner me-1"></i>
+                                        {{ reporte.id_status_report.name_status_report }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge rounded-pill" style="background-color: var(--success-color);">
+                                        <i class="fa-solid fa-check-circle me-1"></i>
+                                        {{ reporte.id_status_report.name_status_report }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if reporte.id_priority_report.name_priority_report == 'Alta' %}
+                                    <span class="badge rounded-pill" style="background-color: var(--accent-color);">
+                                        <i class="fa-solid fa-arrow-up me-1"></i>
+                                        {{ reporte.id_priority_report.name_priority_report }}
+                                    </span>
+                                {% elif reporte.id_priority_report.name_priority_report == 'Media' %}
+                                    <span class="badge rounded-pill" style="background-color: var(--warning-color);">
+                                        <i class="fa-solid fa-equals me-1"></i>
+                                        {{ reporte.id_priority_report.name_priority_report }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge rounded-pill" style="background-color: var(--info-color);">
+                                        <i class="fa-solid fa-arrow-down me-1"></i>
+                                        {{ reporte.id_priority_report.name_priority_report }}
+                                    </span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="{% url 'appBodega:detalle_reporte' reporte.id_report %}" class="btn btn-sm" style="background-color: var(--secondary-color); color: white;">
+                                    <i class="fa-solid fa-eye me-1"></i>
+                                    Ver Detalles
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination d-flex justify-content-center py-3">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if ubicaciones.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1&search={{ search_query }}" aria-label="First">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ ubicaciones.previous_page_number }}&search={{ search_query }}" aria-label="Previous">
+                                    <span aria-hidden="true">Anterior</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="First">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">Anterior</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        
+                        <li class="page-item active">
+                            <span class="page-link">
+                                Página {{ ubicaciones.number }} de {{ ubicaciones.paginator.num_pages }}
+                            </span>
+                        </li>
+                        
+                        {% if ubicaciones.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ ubicaciones.next_page_number }}&search={{ search_query }}" aria-label="Next">
+                                    <span aria-hidden="true">Siguiente</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ ubicaciones.paginator.num_pages }}&search={{ search_query }}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">Siguiente</span>
+                                </a>
+                            </li>
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Asistente de IA -->
+    <div class="ai-assistant-container text-center mb-4">
+        <a href="{% url 'appIA:lora' %}" class="text-decoration-none">
+            <div class="card shadow-sm border-0 overflow-hidden position-relative">
+                <div class="card-body p-0">
+                    <div class="position-relative">
+                        <video src="{% static 'video/ia.mp4' %}" autoplay="true" muted="true" loop="true" width="100%" style="max-height: 200px; object-fit: cover;"></video>
+                        <div class="overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" style="background-color: rgba(0,0,0,0.5);">
+                            <div class="text-white">
+                                <h3 class="mb-2">Asistente de IA</h3>
+                                <p class="mb-0">Resuelve tus dudas con nuestro asistente inteligente</p>
+                                <button class="btn btn-light mt-3">
+                                    <i class="fa-solid fa-robot me-2"></i>
+                                    Iniciar conversación
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<style>
+    .counter-number {
+        opacity: 0;
+        animation: fadeIn 1s ease forwards, countUp 2s ease forwards;
+        animation-delay: 0.5s;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes countUp {
+        from { transform: translateY(20px); }
+        to { transform: translateY(0); }
+    }
+    
+    /* Estilos para las tarjetas de acción */
+    .dashboard-card, .action-card {
+        transition: all var(--transition-speed);
+    }
+    
+    .action-card:hover {
+        background-color: var(--light-color);
+        transform: translateY(-5px);
+    }
+    
+    .action-icon {
+        transition: all var(--transition-speed);
+    }
+    
+    .action-card:hover .action-icon {
+        transform: scale(1.1);
+    }
+    
+    /* Estilos para la tabla */
+    .table th {
+        font-weight: 600;
+        border-bottom: 2px solid var(--light-color);
+    }
+    
+    .table td {
+        vertical-align: middle;
+    }
+    
+    .table tr {
+        transition: all var(--transition-speed);
+    }
+    
+    .table tr:hover {
+        background-color: rgba(57, 181, 74, 0.05);
+    }
+    
+    /* Estilos para la paginación */
+    .page-link {
+        color: var(--secondary-color);
+        transition: all var(--transition-speed);
+    }
+    
+    .page-link:hover {
+        color: var(--primary-color);
+    }
+    
+    .page-item.active .page-link {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+    
+    /* Estilos para el formulario de búsqueda */
+    .search-form {
+        max-width: 350px;
+    }
+    
+    /* Estilos responsivos */
+    @media (max-width: 768px) {
+        .search-form {
+            margin-top: 1rem;
+            max-width: 100%;
+        }
+        
+        .card-header {
+            flex-direction: column;
+            align-items: flex-start !important;
+        }
+    }
+</style>
+    
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const counters = document.querySelectorAll('.counter-number');
+        counters.forEach(counter => {
+            const target = parseInt(counter.getAttribute('data-count'));
+            let count = 0;
+            const speed = 2000 / target; // Ajustar velocidad según el número
+            
+            const updateCount = () => {
+                if (count < target) {
+                    count++;
+                    counter.innerText = count;
+                    setTimeout(updateCount, speed);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+            
+            setTimeout(() => {
+                updateCount();
+            }, 500);
+        });
+    });
+</script>
+{% endblock %}

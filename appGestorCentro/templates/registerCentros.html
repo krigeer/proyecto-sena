@@ -1,0 +1,418 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+
+{% block title %}Añadir Nuevo Centro{% endblock %}
+
+{% block p %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">Añadir Nuevo Centro</h1>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{% url 'appGestorCentro:gestorCentros' %}">Gestor de Centros</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Añadir Centro</li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+
+{% block menuoptions %}
+<li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="{% url 'appGestorCentro:gestorCentros' %}">
+        <i class="bi bi-arrow-left me-1"></i> Regresar
+    </a>
+</li>
+{% endblock %}
+
+{% block contenido %}
+{% if messages %}
+    {% for message in messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                title: "Información",
+                text: "{{ message }}",
+                icon: "info",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "Entendido"
+            });
+        });
+    </script>
+    {% endfor %}
+{% endif %}
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-building-add me-2"></i>Información del Centro
+                </h5>
+            </div>
+            <div class="card-body">
+                <form id="registrationForm" method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+                    
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="progress" style="height: 5px;">
+                                <div class="progress-bar bg-success" role="progressbar" id="formProgress" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pasos del formulario -->
+                    <div id="formSteps">
+                        <!-- Paso 1: Informacion básica -->
+                        <div id="step1" class="form-step active">
+                            <h5 class="text-primary mb-4">Información básica</h5>
+                            
+                            {% for field in form %}
+                                {% if field.name == 'name_centro' or field.name == 'id_sede' or field.name == 'tipo_centro' %}
+                                <div class="mb-3">
+                                    <label for="{{ field.id_for_label }}" class="form-label fw-bold">
+                                        {{ field.label }}
+                                        {% if field.field.required %}
+                                            <span class="text-danger">*</span>
+                                        {% endif %}
+                                    </label>
+                                    <div class="input-group">
+                                        {% if field.name == 'name_centro' %}
+                                            <span class="input-group-text"><i class="bi bi-building"></i></span>
+                                        {% elif field.name == 'id_sede' %}
+                                            <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
+                                        {% elif field.name == 'tipo_centro' %}
+                                            <span class="input-group-text"><i class="bi bi-tags"></i></span>
+                                        {% endif %}
+                                        
+                                        {{ field }}
+                                    </div>
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    <div class="invalid-feedback">
+                                        {% if field.errors %}
+                                            {{ field.errors.0 }}
+                                        {% else %}
+                                            Este campo es obligatorio.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            <div class="d-flex justify-content-end mt-4">
+                                <button type="button" class="btn btn-primary next-step">
+                                    Siguiente <i class="bi bi-arrow-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Paso 2: Ubicación y contacto todavia no tenemos-->
+                        <div id="step2" class="form-step d-none">
+                            <h5 class="text-primary mb-4">Ubicación y contacto</h5>
+                            
+                            {% for field in form %}
+                                {% if field.name == 'direccion_centro' or field.name == 'contact_one' or field.name == 'contact_two' %}
+                                <div class="mb-3">
+                                    <label for="{{ field.id_for_label }}" class="form-label fw-bold">
+                                        {{ field.label }}
+                                        {% if field.field.required %}
+                                            <span class="text-danger">*</span>
+                                        {% endif %}
+                                    </label>
+                                    <div class="input-group">
+                                        {% if field.name == 'direccion_centro' %}
+                                            <span class="input-group-text"><i class="bi bi-pin-map"></i></span>
+                                        {% elif field.name == 'contact_one' %}
+                                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                        {% elif field.name == 'contact_two' %}
+                                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                                        {% endif %}
+                                        
+                                        {{ field }}
+                                    </div>
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    <div class="invalid-feedback">
+                                        {% if field.errors %}
+                                            {{ field.errors.0 }}
+                                        {% else %}
+                                            Este campo es obligatorio.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-outline-secondary prev-step">
+                                    <i class="bi bi-arrow-left me-1"></i> Anterior
+                                </button>
+                                <button type="button" class="btn btn-primary next-step">
+                                    Siguiente <i class="bi bi-arrow-right ms-1"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Paso 3: Información adicional -->
+                        <div id="step3" class="form-step d-none">
+                            <h5 class="text-primary mb-4">Información adicional</h5>
+                            
+                            {% for field in form %}
+                                {% if field.name != 'name_centro' and field.name != 'id_sede' and field.name != 'tipo_centro' and field.name != 'direccion_centro' and field.name != 'contact_one' and field.name != 'contact_two' %}
+                                <div class="mb-3">
+                                    <label for="{{ field.id_for_label }}" class="form-label fw-bold">
+                                        {{ field.label }}
+                                        {% if field.field.required %}
+                                            <span class="text-danger">*</span>
+                                        {% endif %}
+                                    </label>
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                                    {% endif %}
+                                    <div class="invalid-feedback">
+                                        {% if field.errors %}
+                                            {{ field.errors.0 }}
+                                        {% else %}
+                                            Este campo es obligatorio.
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" class="btn btn-outline-secondary prev-step">
+                                    <i class="bi bi-arrow-left me-1"></i> Anterior
+                                </button>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="bi bi-check-circle me-1"></i> Guardar Centro
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <!-- Tarjeta de Ayuda -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-info-circle me-2"></i>Ayuda
+                </h5>
+            </div>
+            <div class="card-body">
+                <div id="helpText" class="mb-0">
+                    <h6 class="text-info">Paso 1: Información básica</h6>
+                    <p>Introduzca el nombre del centro, seleccione la sede a la que pertenece y el tipo de centro. Todos estos campos son obligatorios.</p>
+                    <ul>
+                        <li><strong>Nombre:</strong> Utilice un nombre descriptivo y único.</li>
+                        <li><strong>Sede:</strong> Seleccione la sede principal a la que pertenecerá este centro.</li>
+                        <li><strong>Tipo:</strong> Categoría o clasificación del centro (sucursal, filial, etc).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tarjeta de Consejos -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="card-title mb-0">
+                    <i class="bi bi-lightbulb me-2"></i>Consejos
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex">
+                        <i class="bi bi-check-circle text-success me-3 fs-4"></i>
+                        <div>
+                            <strong>Nombre descriptivo</strong>
+                            <p class="mb-0 small">Utilice un nombre claro que identifique fácilmente al centro.</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex">
+                        <i class="bi bi-telephone text-primary me-3 fs-4"></i>
+                        <div>
+                            <strong>Contactos válidos</strong>
+                            <p class="mb-0 small">Asegúrese de proporcionar números de contacto correctos y verificados.</p>
+                        </div>
+                    </li>
+                    <li class="list-group-item d-flex">
+                        <i class="bi bi-pin-map text-danger me-3 fs-4"></i>
+                        <div>
+                            <strong>Dirección precisa</strong>
+                            <p class="mb-0 small">Incluya referencias para facilitar la ubicación del centro.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Manejo de los pasos del formulario
+    const steps = document.querySelectorAll('.form-step');
+    const nextButtons = document.querySelectorAll('.next-step');
+    const prevButtons = document.querySelectorAll('.prev-step');
+    const progressBar = document.getElementById('formProgress');
+    const helpText = document.getElementById('helpText');
+    let currentStep = 0;
+    
+    // Actualizar la barra de progreso
+    const updateProgressBar = (step) => {
+        const progress = ((step + 1) / steps.length) * 100;
+        progressBar.style.width = progress + '%';
+    };
+    
+    // Actualizar el texto de ayuda según el paso
+    const updateHelpText = (step) => {
+        switch(step) {
+            case 0:
+                helpText.innerHTML = `
+                    <h6 class="text-info">Paso 1: Información básica</h6>
+                    <p>Introduzca el nombre del centro, seleccione la sede a la que pertenece y el tipo de centro. Todos estos campos son obligatorios.</p>
+                    <ul>
+                        <li><strong>Nombre:</strong> Utilice un nombre descriptivo y único.</li>
+                        <li><strong>Sede:</strong> Seleccione la sede principal a la que pertenecerá este centro.</li>
+                        <li><strong>Tipo:</strong> Categoría o clasificación del centro (sucursal, filial, etc).</li>
+                    </ul>
+                `;
+                break;
+            case 1:
+                helpText.innerHTML = `
+                    <h6 class="text-info">Paso 2: Ubicación y contacto</h6>
+                    <p>Proporcione la dirección física del centro y la información de contacto.</p>
+                    <ul>
+                        <li><strong>Dirección:</strong> Dirección completa incluyendo calle, número y código postal.</li>
+                        <li><strong>Contacto principal:</strong> Número de teléfono principal del centro.</li>
+                        <li><strong>Contacto secundario:</strong> Email u otro método de contacto alternativo.</li>
+                    </ul>
+                `;
+                break;
+            case 2:
+                helpText.innerHTML = `
+                    <h6 class="text-info">Paso 3: Información adicional</h6>
+                    <p>Complete cualquier información adicional relevante para el centro.</p>
+                    <ul>
+                        <li><strong>Revise todos los datos:</strong> Antes de guardar, verifique que toda la información sea correcta.</li>
+                        <li><strong>Campos obligatorios:</strong> Asegúrese de completar todos los campos marcados con asterisco (*).</li>
+                    </ul>
+                    <p class="alert alert-success mt-3 mb-0">
+                        <i class="bi bi-check-circle me-2"></i>¡Está a un paso de completar el registro!
+                    </p>
+                `;
+                break;
+        }
+    };
+    
+    // Mostrar el paso actual
+    const showStep = (step) => {
+        steps.forEach((s, i) => {
+            if (i === step) {
+                s.classList.remove('d-none');
+                s.classList.add('active');
+            } else {
+                s.classList.add('d-none');
+                s.classList.remove('active');
+            }
+        });
+        
+        updateProgressBar(step);
+        updateHelpText(step);
+        currentStep = step;
+    };
+    
+    // Validar los campos del paso actual
+    const validateStep = (step) => {
+        const activeStep = steps[step];
+        const inputs = activeStep.querySelectorAll('input, select, textarea');
+        let isValid = true;
+        
+        inputs.forEach(input => {
+            if (input.hasAttribute('required') && !input.value.trim()) {
+                input.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+        
+        return isValid;
+    };
+    
+    // Event listeners para los botones de siguiente
+    nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (validateStep(currentStep)) {
+                showStep(currentStep + 1);
+            } else {
+                Swal.fire({
+                    title: "Campos requeridos",
+                    text: "Por favor complete todos los campos obligatorios antes de continuar.",
+                    icon: "warning",
+                    confirmButtonColor: "#3085d6"
+                });
+            }
+        });
+    });
+    
+    // Event listeners para los botones de anterior
+    prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            showStep(currentStep - 1);
+        });
+    });
+    
+    // Validación del formulario al enviar
+    document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        if (!validateStep(currentStep)) {
+            event.preventDefault();
+            Swal.fire({
+                title: "Campos requeridos",
+                text: "Por favor complete todos los campos obligatorios antes de enviar el formulario.",
+                icon: "warning",
+                confirmButtonColor: "#3085d6"
+            });
+        } else {
+            Swal.fire({
+                title: "Procesando...",
+                text: "Guardando la información del centro...",
+                icon: "info",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                willOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+        }
+    });
+    
+    // Inicializar el primer paso
+    showStep(0);
+    
+    //clases de Bootstrap a los campos del formulario
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+        if (!el.classList.contains('form-control') && !el.classList.contains('form-select') && !el.classList.contains('form-check-input')) {
+            if (el.tagName === 'SELECT') {
+                el.classList.add('form-select');
+            } else if (el.type === 'checkbox' || el.type === 'radio') {
+                el.classList.add('form-check-input');
+            } else {
+                el.classList.add('form-control');
+            }
+        }
+    });
+});
+</script>
+
+<style>
+
+</style>
+{% endblock %}

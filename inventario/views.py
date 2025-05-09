@@ -51,7 +51,7 @@ def login(request):
                     elif rol == 'mesaAyuda':
                         return redirect('appMesaAyuda:mesaAyuda')
                     elif rol == 'gestorCentros':
-                        return redirect('appGestorCentros:gestorCentros')
+                        return redirect('appGestorCentro:gestorCentros')
                     else:
                         messages.error(request, 'Rol no reconocido')
 

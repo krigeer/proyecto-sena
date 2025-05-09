@@ -1,0 +1,59 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+{% block title %}Administrador{% endblock %}
+{% block contenido %}
+{% if messages %}
+{% for message in messages %}
+<script>
+    Swal.fire({
+        title: "info",
+        text: "{{ message }}!",
+        icon: "info"
+    });
+</script>
+{% endfor %}
+{% endif %}
+<div class="categories">
+    <div class="category">
+        <a href="{% url 'appGestorCentro:registroSedes' %}">
+            <i class="fa-solid fa-building-circle-check"></i>
+            <p>Registrar Sede</p>
+        </a>
+    </div>
+    <div class="category">
+        <a href="{% url 'appGestorCentro:Centros' %}">
+            <i class="fa-solid fa-arrow-right-to-city"></i>
+            <p>Registrar Centro</p>
+        </a>
+    </div>
+    <div class="category">
+        <a href="{% url 'appGestorCentro:sedes' %}">
+            <i class="fa-solid fa-gear"></i>
+            <p>Sedes/Centros</p>
+        </a>
+    </div>
+</div>
+{% endblock %}
+{% block estadistics %}
+<div class="stats-section">
+    <h2 class="stats-title">Estadísticas Rápidas</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value">157</div>
+            <div class="stat-label">Sedes</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">23</div>
+            <div class="stat-label">Centros activos</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">5</div>
+            <div class="stat-label">Alertas pendientes</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">42</div>
+            <div class="stat-label">Ubicaciones registradas</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

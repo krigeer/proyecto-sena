@@ -1,0 +1,91 @@
+{% extends 'plantilla.html' %}
+{% load static %}
+
+{% block title %}Añadir Sedes{% endblock %}
+
+{% block p %}Añadir Sedes{% endblock %}
+
+{% block menuoptions %}
+<a href="javascript:history.back()" class="btn-regresar">
+    <i class="fas fa-arrow-left"></i> Regresar
+</a>
+{% endblock %}
+
+{% block contenido %}
+<div class="container-registro">
+    <div class="card-registro">
+        <div class="card-header-registro">
+            <h2>Registro de Nueva Sede</h2>
+        </div>
+
+        <div class="card-body-registro">
+            {% if messages %}
+            <div class="mensajes">
+                {% for message in messages %}
+                <div class="mensaje {% if message.tags %}{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="post" class="formulario-registro">
+                {% csrf_token %}
+
+                <div class="campos-formulario-registro">
+                    {% for field in form %}
+                    <div class="campo-grupo-registro">
+                        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <div class="campo-input-registro">
+                            {{ field }}
+                            {% if field.errors %}
+                            <div class="errores-registro">
+                                {% for error in field.errors %}
+                                <p class="error-mensaje-registro">{{ error }}</p>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            {% if field.help_text %}
+                            <small class="ayuda-texto-registro">{{ field.help_text }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="botonera-registro">
+                    <button type="submit" class="btn-principal-registro">
+                        <i class="fas fa-save"></i> Guardar Sede
+                    </button>
+                    <button type="reset" class="btn-secundario-registro">
+                        <i class="fas fa-undo"></i> Limpiar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+   
+</style>
+{% endblock %}
+{% block estadistics %}
+<div class="stats-section">
+    <h2 class="stats-title">Estadísticas Rápidas</h2>
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-value">157</div>
+            <div class="stat-label">Sedes</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">23</div>
+            <div class="stat-label">Centros activos</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value">42</div>
+            <div class="stat-label">Ubicaciones registradas</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

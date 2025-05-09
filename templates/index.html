@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  {% load static %}
+  <!--Metas-->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--Titulo-->
+  <title>Sistema de Inventario SENA | Gestión Inteligente</title>
+  <!--Boostrap-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!--Fuentes-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!--Font Awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!--AOS Animation-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+  <!--CSS-->
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+  <!--Favicon-->
+  <link rel="shortcut icon" href="{% static 'img/cgti.png' %}" type="image/x-icon">
+</head>
+
+<body>
+  <div class="wrapper">
+    <!--Carrusel Mejorado-->
+    <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="{% static 'img/banner3.jpg' %}" class="d-block w-100" alt="Gestión de inventario">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Gestiona tus activos con inteligencia</h5>
+            <p>Optimiza tus procesos, reduce errores y toma decisiones inteligentes.</p>
+            <a href="{% url 'ingresar' %}" class="btn btn-success">Comenzar ahora</a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'img/banner1.png' %}" class="d-block w-100" alt="Inventario en tiempo real">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Tu inventario en tiempo real</h5>
+            <p>Mantén el control total de tus activos con seguimiento en vivo y análisis predictivos.</p>
+            <a href="{% url 'ingresar' %}" class="btn btn-success">Descubrir más</a>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="{% static 'img/banner2.jpg' %}" class="d-block w-100" alt="Automatización inteligente">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Automatización para el éxito</h5>
+            <p>Simplifica la gestión y mejora la productividad con tecnología de inteligencia artificial.</p>
+            <a href="{% url 'ingresar' %}" class="btn btn-success">Explorar funciones</a>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!--fin carrusel-->
+
+    <!--Navbar Mejorada-->
+    <nav class="navbar sticky-top navbar-expand-lg bg-body-tertiary" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">
+          <img src="{% static 'img/cgti.png' %}" alt="logo">
+          <span>Inventario SENA</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="#about">Nosotros</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Servicios</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#gallery">Galería</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contacto</a>
+            </li>
+            <li class="nav-item">
+              <a class="login-btn ms-lg-3" href="{% url 'ingresar' %}">
+                <i class="fas fa-sign-in-alt me-2"></i>Ingresar
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Sobre nosotros -->
+      <section id="about" class="py-5">
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 class="section-title reveal fade-bottom">Inventario <span id="text-green">SENA</span></h2>
+            <p class="text-center reveal fade-bottom">Plataforma web para el manejo de activos de nuestra institución, diseñada con las últimas tecnologías para ofrecer una experiencia de usuario excepcional y resultados óptimos.</p>
+          </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1000">
+            <div class="imagen">
+              <img src="{% static 'img/sena.jpg' %}" alt="imagen SENA">
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+            <div class="about-content ps-lg-4 mt-4 mt-lg-0">
+              <h3 class="mb-4">¿Por qué elegir nuestro sistema?</h3>
+              <p class="mb-4">Nuestro sistema de inventario está diseñado específicamente para atender las necesidades del SENA, optimizando la gestión de recursos tecnológicos y mejorando la eficiencia operativa.</p>
+              <div class="row">
+                <div class="col-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <p class="mb-0">Interfaz intuitiva</p>
+                  </div>
+                </div>
+                <div class="col-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <p class="mb-0">Tiempo real</p>
+                  </div>
+                </div>
+                <div class="col-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <p class="mb-0">Reportes avanzados</p>
+                  </div>
+                </div>
+                <div class="col-6 mb-3">
+                  <div class="d-flex align-items-center">
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    <p class="mb-0">Seguridad garantizada</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Servicios -->
+      <section id="services" class="py-5">
+        <h2 class="section-title reveal fade-bottom">¿Cómo <span id="text-green">funciona</span>?</h2>
+        <p class="text-center reveal fade-bottom">Nuestro software de inventario con automatización e inteligencia artificial optimiza la gestión de activos al registrar y rastrear equipos en tiempo real. Gracias a la IA, permite análisis predictivos, reconocimiento de voz y automatización de tareas, mejorando la eficiencia operativa.</p>
+        
+        <div class="row mt-5">
+          <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-duration="1000">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-database"></i>
+              </div>
+              <h3 class="service-title">Gestión de Activos</h3>
+              <p>Seguimiento completo del ciclo de vida de tus equipos, desde adquisición hasta baja, con datos en tiempo real.</p>
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="service-title">Análisis Predictivo</h3>
+              <p>Tecnología de IA que anticipa necesidades, predice mantenimientos y optimiza la gestión de recursos.</p>
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
+            <div class="service-card">
+              <div class="service-icon">
+                <i class="fas fa-robot"></i>
+              </div>
+              <h3 class="service-title">Automatización</h3>
+              <p>Reduce tareas manuales y errores humanos con procesos automatizados para inventario y generación de informes.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contador de estadísticas -->
+      <section id="stats" class="py-5 bg-light">
+        <div class="container">
+          <div class="row text-center">
+            <div class="col-md-3 mb-4 mb-md-0" data-aos="fade-up">
+              <div class="counter">
+                <i class="fas fa-users fa-3x text-success mb-3"></i>
+                <h2 class="counter-number" data-target="500">0</h2>
+                <p class="counter-text">Usuarios activos</p>
+              </div>
+            </div>
+            <div class="col-md-3 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="200">
+              <div class="counter">
+                <i class="fas fa-laptop fa-3x text-success mb-3"></i>
+                <h2 class="counter-number" data-target="10000">0</h2>
+                <p class="counter-text">Activos gestionados</p>
+              </div>
+            </div>
+            <div class="col-md-3 mb-4 mb-md-0" data-aos="fade-up" data-aos-delay="400">
+              <div class="counter">
+                <i class="fas fa-building fa-3x text-success mb-3"></i>
+                <h2 class="counter-number" data-target="25">0</h2>
+                <p class="counter-text">Centros SENA</p>
+              </div>
+            </div>
+            <div class="col-md-3" data-aos="fade-up" data-aos-delay="600">
+              <div class="counter">
+                <i class="fas fa-clock fa-3x text-success mb-3"></i>
+                <h2 class="counter-number" data-target="98">0</h2>
+                <p class="counter-text">% de eficiencia</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Galería -->
+      <section id="gallery" class="py-5">
+        <h2 class="section-title reveal fade-bottom">Galería</h2>
+        <p class="text-center reveal fade-bottom">Conoce nuestro sistema de inventario a través de imágenes que muestran su interfaz intuitiva y funcionalidades avanzadas.</p>
+        
+        <div class="row gallery mt-4">
+          <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-duration="800">
+            <div class="gallery-item">
+              <img src="{% static 'img/gale1.jpg' %}" class="img-fluid rounded" alt="Gallery Image">
+              <div class="gallery-overlay">
+                <i class="fas fa-search-plus gallery-icon"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="200">
+            <div class="gallery-item">
+              <img src="{% static 'img/gale2.jpg' %}" class="img-fluid rounded" alt="Gallery Image">
+              <div class="gallery-overlay">
+                <i class="fas fa-search-plus gallery-icon"></i>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="400">
+            <div class="gallery-item">
+              <img src="{% static 'img/gale3.jpg' %}" class="img-fluid rounded" alt="Gallery Image">
+              <div class="gallery-overlay">
+                <i class="fas fa-search-plus gallery-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonios -->
+      <section id="testimonials" class="py-5 bg-light">
+        <div class="container">
+          <h2 class="section-title reveal fade-bottom">Testimonios</h2>
+          <p class="text-center reveal fade-bottom">Lo que dicen nuestros usuarios sobre el sistema de inventario.</p>
+          
+          <div class="row mt-4">
+            <div class="col-md-12">
+              <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <div class="testimonial-card">
+                      <div class="row">
+                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                          <div class="testimonial-img">
+                            <img src="{% static 'img/avatar1.jpg' %}" alt="Testimonio 1" class="rounded-circle">
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="testimonial-content p-4">
+                            <div class="testimonial-text">
+                              <i class="fas fa-quote-left fa-2x text-success opacity-25 mb-3"></i>
+                              <p class="mb-4">El sistema de inventario ha transformado completamente la forma en que gestionamos nuestros activos tecnológicos. La eficiencia ha mejorado en un 45% desde su implementación.</p>
+                              <h5 class="mb-1">Carlos Jiménez</h5>
+                              <p class="text-muted">Coordinador CGTI</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item">
+                    <div class="testimonial-card">
+                      <div class="row">
+                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                          <div class="testimonial-img">
+                            <img src="{% static 'img/avatar2.jpg' %}" alt="Testimonio 2" class="rounded-circle">
+                          </div>
+                        </div>
+                        <div class="col-md-8">
+                          <div class="testimonial-content p-4">
+                            <div class="testimonial-text">
+                              <i class="fas fa-quote-left fa-2x text-success opacity-25 mb-3"></i>
+                              <p class="mb-4">La interfaz intuitiva y los reportes en tiempo real me permiten tomar decisiones más informadas. Definitivamente recomendaría este sistema a otros centros del SENA.</p>
+                              <h5 class="mb-1">Laura Martínez</h5>
+                              <p class="text-muted">Administradora de Recursos</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon bg-success rounded-circle" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                  <span class="carousel-control-next-icon bg-success rounded-circle" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contacto -->
+      <section id="contact" class="py-5">
+        <div class="container">
+          <h2 class="section-title reveal fade-bottom">Contacto</h2>
+          <p class="text-center reveal fade-bottom">¿Tienes preguntas o necesitas más información? Ponte en contacto con nuestro equipo.</p>
+          
+          <div class="row mt-5">
+            <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+              <div class="contact-info p-4 bg-light rounded shadow-sm">
+                <h3 class="mb-4">Información de contacto</h3>
+                <div class="d-flex mb-3">
+                  <div class="contact-icon me-3">
+                    <i class="fas fa-map-marker-alt text-success"></i>
+                  </div>
+                  <div>
+                    <h5 class="mb-1">Dirección</h5>
+                    <p class="mb-0">Calle 57 #8-69, Bogotá, Colombia</p>
+                  </div>
+                </div>
+                <div class="d-flex mb-3">
+                  <div class="contact-icon me-3">
+                    <i class="fas fa-phone-alt text-success"></i>
+                  </div>
+                  <div>
+                    <h5 class="mb-1">Teléfono</h5>
+                    <p class="mb-0">+57 601 5461500</p>
+                  </div>
+                </div>
+                <div class="d-flex mb-3">
+                  <div class="contact-icon me-3">
+                    <i class="fas fa-envelope text-success"></i>
+                  </div>
+                  <div>
+                    <h5 class="mb-1">Email</h5>
+                    <p class="mb-0">inventario@sena.edu.co</p>
+                  </div>
+                </div>
+                <div class="social-links mt-4">
+                  <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                  <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-7" data-aos="fade-left" data-aos-delay="200">
+              <form class="contact-form p-4 bg-white rounded shadow-sm">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">Nombre completo</label>
+                    <input type="text" class="form-control" id="name" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" class="form-control" id="email" required>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="subject" class="form-label">Asunto</label>
+                  <input type="text" class="form-control" id="subject" required>
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label">Mensaje</label>
+                  <textarea class="form-control" id="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-success w-100">Enviar mensaje</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <div class="footer-section">
+            <h2>Sobre Nosotros</h2>
+            <p>
+              Somos una plataforma dedicada a la gestión de inventarios tecnológicos, optimizando procesos y mejorando la
+              eficiencia en el SENA.
+            </p>
+            <div class="social-icons">
+              <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <div class="footer-section">
+            <h2>Enlaces Rápidos</h2>
+            <ul>
+              <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Inicio</a></li>
+              <li><a href="#about"><i class="fas fa-chevron-right me-2"></i>Nosotros</a></li>
+              <li><a href="#services"><i class="fas fa-chevron-right me-2"></i>Servicios</a></li>
+              <li><a href="#gallery"><i class="fas fa-chevron-right me-2"></i>Galería</a></li>
+              <li><a href="#contact"><i class="fas fa-chevron-right me-2"></i>Contacto</a></li>
+              <li><a href="#"><i class="fas fa-chevron-right me-2"></i>Política de privacidad</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="footer-section">
+            <h2>Nuestros Aliados</h2>
+            <div class="allies">
+              <img src="{% static 'img/cgti.png' %}" alt="Aliado 1">
+              <img src="{% static 'img/aliado1.png' %}" alt="Aliado 2">
+              <img src="{% static 'img/aliado2.png' %}" alt="Aliado 3">
+            </div>
+            <div class="mt-4">
+              <h5 class="mb-3">Suscríbete a nuestro boletín</h5>
+              <div class="input-group">
+                <input type="email" class="form-control" placeholder="Tu correo electrónico">
+                <button class="btn btn-success" type="button">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <p class="mb-0">© 2025 Inventario SENA. Todos los derechos reservados.</p>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <p class="mb-0">Diseñado con <i class="fas fa-heart text-danger"></i> por CGTI</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    // Inicializa AOS (Animate On Scroll)
+    AOS.init();
+
+    // Contador para estadísticas
+    const counters = document.querySelectorAll('.counter-number');
+    const speed = 200;
+
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const count = +counter.innerText;
+        const increment = target / speed;
+
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 1);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      updateCount();
+    });
+
+    // Efecto de scroll en la navbar
+    window.addEventListener('scroll', function() {
+      const navbar = document.getElementById('mainNav');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Animación para elementos al hacer scroll
+    window.addEventListener('scroll', reveal);
+
+    function reveal() {
+      var reveals = document.querySelectorAll('.reveal');
+
+      for (var i = 0; i < reveals.length; i++) {
+        var windowHeight = window.innerHeight;
+        var revealTop = reveals[i].getBoundingClientRect().top;
+        var revealPoint = 150;
+
+        if (revealTop < windowHeight - revealPoint) {
+          reveals[i].classList.add('active');
+        }
+      }
+    }
+
+    // Scroll suave para los enlaces del menú
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Activar tooltips de Bootstrap
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+
+    // Efecto hover en los servicios
+    document.querySelectorAll('.service-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px)';
+      });
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
+</body>
+
+</html>
