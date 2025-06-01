@@ -3,3 +3,7 @@ __pycache__/
 *.pyc
 *sqlite3
 *.db
+
+despliegue/
+venv/
+.env/
