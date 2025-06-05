@@ -27,7 +27,7 @@
         <header>
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="{{ request.META.HTTP_REFERER }}">
                         <img class="img-logo" src="{% static 'img/cgti.png' %}" alt="Logo">
                         <span class="fw-bold">GestiónInventario</span>
                     </a>
@@ -70,10 +70,12 @@
             {% endfor %}
             {% endif %}
             
-            <div class="dashboard-header">
+            
+          {% block p %} 
+          <div class="dashboard-header">
                 <div>
                     <h1 class="dashboard-title">Panel de Control</h1>
-                    <p class="user-welcome">Bienvenido al sistema de gestión de inventario</p>
+                    <p class="user-welcome">Bienvenido {{ user }} al sistema de gestión de inventario</p>
                 </div>
                 <div class="date-display">
                     <span class="current-date badge bg-light text-dark px-3 py-2">
@@ -82,8 +84,6 @@
                     </span>
                 </div>
             </div>
-          {% block p %} 
-          <h1>{{ user }}</h1>
           <p>ELIGE UNA CATEGORÍA</p> 
           {% endblock %}
           

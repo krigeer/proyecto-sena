@@ -1,0 +1,20 @@
+{% extends 'plantilla.html' %}
+{% block title %}Editar Usuario{% endblock %}
+{% block menuoptions %}
+<li class="nav-item">
+    <a class="nav-link active d-flex align-items-center" aria-current="page" href="{{ request.META.HTTP_REFERER }}">
+        <i class="fa-solid fa-arrow-left me-2"></i>
+        Regresar
+    </a>
+</li>
+{% endblock %}
+ {% block p %} {% endblock %}
+{% block contenido %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+</form>
+{% endblock %}
+ {% block estadistics %}
+ {% endblock %}

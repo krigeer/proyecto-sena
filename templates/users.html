@@ -1,10 +1,7 @@
 {% extends 'plantilla.html' %}
 {% block menuoptions %}
 <li class="nav-item">
-    <a class="nav-link active d-flex align-items-center" aria-current="page" href="{{ request.META.HTTP_REFERER }}">
         <a class="nav-link active" aria-current="page" href="{{ request.META.HTTP_REFERER }}"><i class="fa-solid fa-arrow-left me-2"></i> Regresar</a>
-        
-    </a>
 </li>
 {% endblock %}
 
@@ -90,7 +87,7 @@
         
         <div class="card-footer bg-light py-3">
             <div class="d-flex justify-content-end gap-3">
-                <a href="" class="btn btn-primary" style="background-color: var(--secondary-color); border-color: var(--secondary-color); transition: all var(--transition-speed) ease;">
+                <a href="{% url 'actualizar_datos' usuario.id_user %}" class="btn btn-primary" style="background-color: var(--secondary-color); border-color: var(--secondary-color); transition: all var(--transition-speed) ease;">
                     <i class="fa-solid fa-pen-to-square me-2"></i>
                     Editar
                 </a>
@@ -102,9 +99,6 @@
         </div>
     </div>
 </div>
-
-
-<style>
-    
-</style>
+ {% block estadistics %}
+ {% endblock %}
 {% endblock %}

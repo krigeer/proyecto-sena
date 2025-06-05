@@ -212,6 +212,7 @@ def visualizar(request, id):
         usuario = models.User.objects.get(id_user=id_usuario)
     except models.User.DoesNotExist:
         return redirect('/ingresar/')
+    
     context = {
         'centros': models.centro.objects.all(),  # Obtener todos los centros
     }

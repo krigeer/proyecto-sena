@@ -10,5 +10,6 @@ urlpatterns = [
     path('bodega/', include('appBodega.urls'), name='bodega'),
     path('Lora/', include('appIA.urls'), name='ia'),
     path('ajustes/<int:id>/', views.ajustes, name='ajustes'),
+    path('actualizar_datos/<int:id>/', views.modificar_usuario, name='actualizar_datos'),
     path('salir', LogoutView.as_view(next_page='ingresar'), name='salir'),
 ]
