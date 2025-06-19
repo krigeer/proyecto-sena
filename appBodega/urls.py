@@ -13,5 +13,8 @@ urlpatterns =[
     path('mesaAyuda/', views.mesaAyuda, name='mesaAyuda'),
     path('newReport/', views.newReporte, name='newReport'),
     path('detalle/<int:id>/', views.visualizar, name='detalles'),
-    path('detalle_reporte/<int:id>/',views.visualizar, name='detalle_reporte')
+    path('deatelleOtros/<int:id>/', views.visualizarMaterial, name='detalleOtros'),
+    path('detalle_reporte/<int:id>/',views.visualizar, name='detalle_reporte'),
+    path('actualiar-equipo/<int:id>/', views.actualizarTecnologia, name='actualizar-equipo'),
+    path('actualizar-otros/<int:id>/', views.actualizarMaterial, name='actualizar-otros'),
     ]

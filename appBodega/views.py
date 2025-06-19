@@ -35,14 +35,14 @@ def index(request):
 
 def newTecnologi(request):
     if not request.session.get('is_authenticated'):
-        return redirect('/ingresar/')  # Redirige si no está logueado
+        return redirect('/ingresar/') 
 
     user_id = request.session.get('user_id')
 
     try:
         usuario = models.User.objects.get(id_user=user_id)
     except models.User.DoesNotExist:
-        return redirect('/ingresar/')  # Por si falla
+        return redirect('/ingresar/') 
 
     
     #formulario por metodo post
@@ -84,14 +84,14 @@ def newTecnologi(request):
 
 def newOtros(request):
     if not request.session.get('is_authenticated'):
-        return redirect('/ingresar/')  # Redirige si no está logueado
+        return redirect('/ingresar/')  
 
     user_id = request.session.get('user_id')
 
     try:
         usuario = models.User.objects.get(id_user=user_id)
     except models.User.DoesNotExist:
-        return redirect('/ingresar/')  # Por si falla
+        return redirect('/ingresar/')  
     #formulario registro materiales
     if request.method == 'POST':
         form = forms.RegistroMateriales(request.POST)
@@ -131,21 +131,21 @@ def newOtros(request):
 
 def newUbication(request):
     if not request.session.get('is_authenticated'):
-        return redirect('/ingresar/')  # Redirige si no está logueado
+        return redirect('/ingresar/') 
 
     user_id = request.session.get('user_id')
 
     try:
         usuario = models.User.objects.get(id_user=user_id)
     except models.User.DoesNotExist:
-        return redirect('/ingresar/')  # Por si falla
+        return redirect('/ingresar/')  
     # Manejo del formulario
     if request.method == 'POST':
         form = forms.RegistroUbicacion(request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, 'Ubicación Registrada')
-            return redirect('bodega:bodega')  # Se mantiene en la misma vista
+            return redirect('bodega:bodega') 
         else:
             print(form.errors)
             messages.error(request, 'Ubicación no registrada')
@@ -180,7 +180,7 @@ def newUbication(request):
 
 def prestamo(request):
     if not request.session.get('is_authenticated'):
-        return redirect('/ingresar/')  # Redirige si no está logueado
+        return redirect('/ingresar/')  
 
     id_usuario = request.session.get('user_id')
 
@@ -204,7 +204,24 @@ def prestamo(request):
 
 def visualizar(request, id):
     if not request.session.get('is_authenticated'):
-        return redirect('/ingresar/')  # Redirige si no está logueado
+        return redirect('/ingresar/')  
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')
+    tecnologias = models.Tecnology.objects.filter(idTecnology=id).select_related('idType_technologi').first()
+    context = {
+        'tecnologias': tecnologias,  #
+    }
+    return render(request, 'visualizar.html', context)
+
+
+def actualizarTecnologia(request, id):
+    if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')  
 
     id_usuario = request.session.get('user_id')
 
@@ -213,10 +230,70 @@ def visualizar(request, id):
     except models.User.DoesNotExist:
         return redirect('/ingresar/')
     
+    tecnologia = get_object_or_404(models.Tecnology, idTecnology=id)
+    
+    if request.method == 'POST':
+        form = forms.RegistroTecnologico(request.POST, instance=tecnologia)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Tecnología actualizada exitosamente')
+            return redirect('bodega:bodega')
+        else:
+            messages.error(request, 'Error al actualizar la tecnología')
+    else:
+        form = forms.RegistroTecnologico(instance=tecnologia)
+
+    return render(request, 'actualiza-equipo.html', {'form': form, 'tecnologia': tecnologia})
+
+
+def visualizarMaterial(request, id):
+    if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')  
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')
+    
+    material = get_object_or_404(models.Material_Didactico, idMaterial_didactico=id)
+    
     context = {
-        'centros': models.centro.objects.all(),  # Obtener todos los centros
+        'material': material,  #
     }
-    return render(request, 'visualizar.html', context)
+    return render(request, 'visualizar-didactico.html', context)
+
+
+
+def actualizarMaterial(request, id):
+    if not request.session.get('is_authenticated'):
+        return redirect('/ingresar/')  
+
+    id_usuario = request.session.get('user_id')
+
+    try:
+        usuario = models.User.objects.get(id_user=id_usuario)
+    except models.User.DoesNotExist:
+        return redirect('/ingresar/')
+    
+    material = get_object_or_404(models.Material_Didactico, idMaterial_didactico=id)
+    
+    if request.method == 'POST':
+        form = forms.RegistroMateriales(request.POST, instance=material)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Material actualizado exitosamente')
+            return redirect('bodega:bodega')
+        else:
+            messages.error(request, 'Error al actualizar el material')
+    else:
+        form = forms.RegistroMateriales(instance=material)
+
+    return render(request, 'actualiza-equipo.html', {'form': form, 'material': material})
+
+
+
 
 def mesaAyuda(request):
     if not request.session.get('is_authenticated'):

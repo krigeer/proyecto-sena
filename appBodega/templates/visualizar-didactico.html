@@ -33,7 +33,7 @@
                 <div class="card-header bg-gradient-primary text-white py-3">
                     <h4 class="mb-0 d-flex align-items-center gap-2">
                         <i class="fas fa-info-circle"></i>
-                        Información del Equipo
+                        Información del Material
                     </h4>
                 </div>
                 <div class="card-body p-4">
@@ -45,8 +45,8 @@
                                     <i class="fas fa-tag text-white"></i>
                                 </div>
                                 <div class="info-content">
-                                    <label class="info-label">Marca</label>
-                                    <p class="info-value">{{tecnologias.idMarke.name_marke}}</p>
+                                    <label class="info-label">Nombre</label>
+                                    <p class="info-value">{{material.name_material}}</p>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +57,8 @@
                                     <i class="fas fa-microchip text-white"></i>
                                 </div>
                                 <div class="info-content">
-                                    <label class="info-label">Tipo</label>
-                                    <p class="info-value">{{tecnologias.idType_technologi.name_technologi}}</p>
+                                    <label class="info-label">Cantidad</label>
+                                    <p class="info-value">{{material.quantity}}</p>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="info-content">
                                     <label class="info-label">Estado</label>
-                                    <p class="info-value">{{tecnologias.id_Place.name_place}}</p>
+                                    <p class="info-value">{{material.ID_status}}</p>
                                 </div>
                             </div>
                         </div>
@@ -82,7 +82,7 @@
                                 </div>
                                 <div class="info-content">
                                     <label class="info-label">Ubicación</label>
-                                    <p class="info-value">{{tecnologias.idUbication.name_Ubication}}</p>
+                                    <p class="info-value">{{material.idUbication}}</p>
                                 </div>
                             </div>
                         </div>
@@ -93,8 +93,8 @@
                                     <i class="fas fa-barcode text-white"></i>
                                 </div>
                                 <div class="info-content">
-                                    <label class="info-label">Serial SENA</label>
-                                    <p class="info-value">{{tecnologias.series_sena}}</p>
+                                    <label class="info-label">Cantidad</label>
+                                    <p class="info-value">{{material.quantity}}</p>
                                 </div>
                             </div>
                         </div>
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="info-content">
                                     <label class="info-label">Serial Fábrica</label>
-                                    <p class="info-value">{{tecnologias.series_Manufactures}}</p>
+                                    <p class="info-value">{{material.series_Manufactures}}</p>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +120,7 @@
                                 Características Técnicas
                             </h5>
                             <div class="characteristics-content">
-                                <p class="mb-0">{{tecnologias.caracteristics}}</p>
+                                <p class="mb-0">{{material.description}}</p>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                                 Descripción
                             </h5>
                             <div class="description-content">
-                                <p class="mb-0">{{tecnologias.series_Manufactures}}</p>
+                                <p class="mb-0">{{material.series_Manufactures}}</p>
                             </div>
                         </div>
                     </div>
@@ -144,7 +144,7 @@
         <!-- Columna del Formulario -->
         <div class="col-lg-5">
             <div class="form-actions mt-4">
-                <a href="{% url 'appBodega:actualizar-equipo' tecnologias.idTecnology  %}" class="a-icon">
+                <a href="{% url 'appBodega:actualizar-otros' material.idMaterial_didactico  %}" class="a-icon">
                     <button  class="btn btn-primary btn-lg w-100 modern-btn">
                         <i class="fas fa-sync-alt me-2"></i>
                         Actualizar Información</a>

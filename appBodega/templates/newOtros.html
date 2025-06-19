@@ -56,7 +56,7 @@
                         <td>{{ ubi.quantity }}</td>
                         <td>{{ ubi.series_Manufactures }}</td>
                         <td>{{ ubi.series_sena }}</td>
-                        <td><a href="#" class="btn btn-sm btn-primary">Visualizar</a></td>
+                        <td><a href="{% url 'appBodega:detalleOtros' ubi.idMaterial_didactico %}" class="btn btn-sm btn-primary">Visualizar</a></td>
                     </tr>
                     {% empty %}
                     <tr>
@@ -105,3 +105,5 @@
 </div>
 </div>
 {% endblock %}
+{% block estadistics %}
+ {% endblock %}
